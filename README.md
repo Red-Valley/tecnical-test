@@ -5,7 +5,7 @@
 
 ## Code test
     Create an IRC (Internet Relay Chat) 
-    - Create a login page with options to create user if none exists. Use nickname to identify the user
+    - Create a login page with options to create user if none exists. Use nicknames to identify the user.
     - Create a chat room, where you load message history and show incoming messages real-time.
     - Create a text box to write messages.
     - Messages should show sender and time information. 
@@ -21,7 +21,7 @@
     - Testing (Bonus)
 
 ## Backend, choose between any of the tools below:
-    - Aplicacion:
+    - Application:
         - Python (Django, Flask)
         - Node.js (Express, NestJs)
         - Firebase or similar (Optional)
