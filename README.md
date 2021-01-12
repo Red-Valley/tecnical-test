@@ -17,6 +17,7 @@
     - Javascript
         - React
         - Redux
+        - Thunks/Saga
     - Html/Css (Material ui, Boostrap, Tailwind Css, etc)
     - Testing (Bonus)
 
