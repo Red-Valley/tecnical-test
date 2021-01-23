@@ -1,0 +1,120 @@
+.contenedor-usuario {
+    background-color: #2f3848;
+    width: 100%;
+    height: 100vh;
+}
+
+.contenedor-formulario {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1.5rem;
+    width: 400px;
+    background-color: #ffffff;
+    border-radius: 1rem;
+}
+
+.sign-container{
+    width: 100%;
+    margin: 10px auto ;
+}
+
+.redes{
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding: 8px 30px;
+    background-color: #e4e4e4;
+    color: #4c4e52;
+    cursor: pointer;
+}
+
+.redes:hover{
+    background-color: rgb(192, 188, 188);
+}
+
+.redes i {
+    font-size: 1rem;
+    margin-right: 5px;
+    color: #4d4343;
+}
+
+h6 {
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 1rem;
+    text-align: left;
+    color:  #2f3848;
+}
+
+.campo-formulario {
+    display: flex;
+    margin-bottom: .5rem;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.campo-form:last-of-type {
+    margin: 0;
+}
+
+.campo-formulario label {
+    flex: 0 0 100px;
+    font-family: 'Raleway', sans-serif;
+}
+  
+.campo-formulario input[type="password"],
+.campo-formulario input[type="email"], 
+.campo-formulario input[type="text"] {
+    border: 1px solid #e1e1e1;
+    padding: .6rem;
+    flex: 1;
+}
+
+.btn1 {
+    margin-top: 1rem;
+    font-family: 'Raleway', sans-serif;
+    padding: .8rem;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: .5rem;
+    border: none;
+    background-color:  #2f3848;
+    color: #ffffff;
+    transition: background-color .3s ease;
+}
+  
+.btn1:hover {
+    cursor: pointer;
+    background: #465164;
+}
+
+.count{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+  
+.count p {
+    font-size: 1rem;
+}
+  
+.count .enlace-cuenta {
+    color:  #1a202d;
+    margin-left: .5rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.alerta-error {
+    width: 100%;
+    text-align: left;
+    top: -6px;
+    position: relative;
+    font-size: .65rem;
+    color: red;
+}
