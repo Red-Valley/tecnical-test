@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import Spinner from '../atom/Spinner';
 
-import {loginWithEmail, signInWithGoogle} from '../firebase/client';
+import {loginWithEmail, signInWithGoogle} from '../firebase/firebase';
 
 
 const Login = () => {
@@ -13,7 +12,6 @@ const Login = () => {
 		email: '',
 		password: ''
     })
-    const [loading, setLoading] = useState(false)
     const history = useHistory();
 
   	// Destructuring a usuario
@@ -42,12 +40,10 @@ const Login = () => {
         loginWithEmail(email, password).then(
 			history.push('/')
 		)
-		setLoading(true)
 	}
 
 	return (
 		<div className="contenedor-usuario">
-			{loading && <Spinner/>}
 			<div className="contenedor-formulario">
 				<h6>Sign In with</h6>
 				<div className="sign-container">

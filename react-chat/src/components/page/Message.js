@@ -3,7 +3,6 @@ import {formatRelative} from 'date-fns'
 import './style.css'
 
 
-
 const Message = ({
     email= '',
     text = '',

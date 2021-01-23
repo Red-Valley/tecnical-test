@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import firebase from '../firebase/client'
+import firebase from '../firebase/firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
 
@@ -28,8 +28,6 @@ const Chat = () => {
         return unsubscribe;
         // eslint-disable-next-line
     }, [])
-
-    // console.info(user)
 
     return (
         <div>

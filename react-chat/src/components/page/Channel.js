@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import firebase from '../firebase/client'
+import firebase from '../firebase/firebase'
 import Message from './Message'
 import Button from './Button';
 import './style.css'
@@ -72,7 +72,7 @@ const Channel = ({user, db}) => {
     const fecthData = async (e) => {
         e.preventDefault();
 
-        if(e.target.value.length === 0) setGifs(true);
+        if(e.target.value.length === 0) setGifs(false);
         
         const results = await Axios.get("https://api.giphy.com/v1/gifs/search", {
             params: {
@@ -92,8 +92,6 @@ const Channel = ({user, db}) => {
             </div>
         })
     }
-
-    console.info(gif)
 
     const detecting = (e) => {
         const result = data.filter(dat => {

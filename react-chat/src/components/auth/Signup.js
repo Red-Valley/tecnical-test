@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import './Signup.css';
 
-import {registerWithEmail} from '../firebase/client';
+import {registerWithEmail} from '../firebase/firebase';
 
 const Signup = () => {
 
