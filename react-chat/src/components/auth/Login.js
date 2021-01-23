@@ -49,7 +49,7 @@ const Login = () => {
 				<div className="sign-container">
 					<div className="redes" onClick={signInWithGoogle}><i className="fab fa-google"></i>Google</div>
 				</div>
-				<h6>O utiliza tu correo</h6>
+				<h6>Or use your email</h6>
 				<form 
 					onSubmit={onSubmit}
 				>
