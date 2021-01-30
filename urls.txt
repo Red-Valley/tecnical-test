@@ -1,0 +1,7 @@
+Meme chat service
+
+heroku: https://meme-chating.herokuapp.com/
+
+github: https://github.com/arturovictoriar/meme_chat
+
+Author: Arturo Victoria Rincon - https://github.com/arturovictoriar
