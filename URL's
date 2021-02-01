@@ -1,0 +1,14 @@
+FrontEnd: https://github.com/dafegosa/irc-frontend
+  (React, React Router, Redux, Redux-thunk React Redux, Bootstrap, Styled-components, Axios)
+  Despliegue: Vercel
+  
+BackEnd: https://github.com/dafegosa/irc-backend
+  (NodeJs, Express, Jws, Mongoose, SocketIO)
+  Despliegue: Heroku
+  
+DataBase: MongoDb
+  Despliegue: MongoAtlas
+  
+  
+  
+App´s url: https://irc.dafegosa.vercel.app/login
