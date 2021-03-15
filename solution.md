@@ -7,5 +7,5 @@
 
 ## Repository
 
-* [App](https://github.com/yosoyafa/noi-chat-app/).
+* [App](https://github.com/yosoyafa/noi-chat-app/)
 * [Server](https://github.com/yosoyafa/noi-chat-server)
