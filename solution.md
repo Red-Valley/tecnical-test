@@ -2,7 +2,7 @@
 
 ## Deployment
 
-* [App](https://604f9624484b7829b5c35abd--elegant-hamilton-646fc3.netlify.app)
+* [App](https://604fd6fe8776030db4fd750f--elegant-hamilton-646fc3.netlify.app)
 * [Server](https://noi-chat.herokuapp.com/) 
 
 ## Repository
