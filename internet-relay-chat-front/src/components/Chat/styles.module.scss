@@ -1,0 +1,97 @@
+.container {
+  display: grid;
+  place-items: center;
+}
+
+.userContainer {
+  -webkit-transition: width 1s, background 1s;
+  -moz-transition: width 1s, background 1s;
+  -o-transition: width 1s, background 1s;
+  transition: width 1s, background 1s;
+  transition: all 0.3s ease-out;
+}
+
+.options {
+  display: grid;
+  position: relative;
+  background-color: #57b9ee;
+  border-radius: 0px 0px 23px 23px;
+}
+
+.chatBox {
+  background-color: #fff !important;
+  border-radius: 23px;
+}
+
+.noBorder {
+  border: none;
+}
+
+.sender {
+  display: grid;
+  place-items: center;
+}
+
+.senderIcon {
+  color: #fff !important;
+}
+
+@media screen and (min-width: 1024px) {
+  .options {
+    display: grid;
+    grid-template-columns: 90% 5%;
+  }
+
+  .chat {
+    margin: 1% 0 1% 2%;
+  }
+
+  .senderIcon {
+    color: #fff !important;
+    padding-top: -5%;
+  }
+
+  .sender {
+    margin: -15% 0 0 15%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .options {
+    display: grid;
+    grid-template-columns: 90% 5%;
+  }
+
+  .chat {
+    margin: 2% 0 2% 2%;
+  }
+
+  .senderIcon {
+    color: #fff !important;
+    padding-top: -7%;
+  }
+
+  .sender {
+    margin: -17% 0 0 17%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .options {
+    display: grid;
+    grid-template-columns: 82% 5%;
+  }
+
+  .chat {
+    margin: 2.5 0 2.5% 2.5%;
+  }
+
+  .senderIcon {
+    color: #fff !important;
+    padding-top: -5%;
+  }
+
+  .sender {
+    margin: -15% 0 0 15%;
+  }
+}
