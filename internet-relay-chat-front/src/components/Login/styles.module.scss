@@ -1,0 +1,143 @@
+.container {
+  display: grid;
+  place-items: center;
+}
+
+.loginBox {
+  display: flex !important;
+  border-radius: 23px;
+  background-color: #fff;
+  width: 30%;
+  height: 50vh;
+  flex-direction: column !important;
+  -webkit-transition: width 1s, background 1s;
+  -moz-transition: width 1s, background 1s;
+  -o-transition: width 1s, background 1s;
+  transition: width 1s, background 1s;
+  padding: 10px;
+  margin: 10px;
+  transition: all 0.3s ease-out;
+}
+
+.signUpBox {
+  display: flex !important;
+  border-radius: 23px;
+  background-color: #fff;
+  width: 30%;
+  height: 78vh;
+  flex-direction: column !important;
+  -webkit-transition: width 1s, background 1s;
+  -moz-transition: width 1s, background 1s;
+  -o-transition: width 1s, background 1s;
+  transition: width 1s, background 1s;
+  padding: 10px;
+  margin: 10px;
+  transition: all 0.3s ease-out;
+}
+
+.form {
+  display: grid;
+  place-items: center;
+  margin-top: 2%;
+  row-gap: 10%;
+  width: 100%;
+}
+
+.formSingUp {
+  display: grid;
+  place-items: center;
+  margin-top: 2%;
+  row-gap: 3%;
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .loginBox {
+    display: flex !important;
+    width: 30%;
+    height: 50vh;
+  }
+
+  .signUpBox {
+    width: 30%;
+    height: 78vh;
+  }
+
+  .form {
+    display: grid;
+    place-items: center;
+    margin-top: 2%;
+    row-gap: 10%;
+    width: 100%;
+  }
+
+  .formSingUp {
+    display: grid;
+    place-items: center;
+    margin-top: 2%;
+    row-gap: 3%;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .loginBox {
+    display: flex !important;
+    width: 60%;
+    height: 43vh;
+    margin-top: 25%;
+  }
+
+  .signUpBox {
+    width: 60%;
+    height: 50vh;
+    margin-top: 25%;
+  }
+
+  .form {
+    display: grid;
+    place-items: center;
+    margin-top: 2%;
+    row-gap: 10%;
+    width: 100%;
+  }
+
+  .formSingUp {
+    display: grid;
+    place-items: center;
+    margin-top: 2%;
+    row-gap: 3%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .loginBox {
+    display: flex !important;
+    width: 80%;
+    height: 43vh;
+    margin-top: 45%;
+  }
+
+  .signUpBox {
+    width: 80%;
+    height: 78vh;
+    margin-top: 20%;
+  }
+
+  .form {
+    display: grid;
+    place-items: center;
+    margin-top: 2%;
+    row-gap: 10%;
+    width: 100%;
+  }
+
+  .formSingUp {
+    display: grid;
+    place-items: center;
+    margin-top: 2%;
+    row-gap: 3%;
+    width: 100%;
+  }
+}
