@@ -1,35 +1,51 @@
-# Tecnical test
+# Tecnical test / Back-end
 
 ## Testing you tecnical skills
-* General programing concepts questions (verbal)
+    - General programing concepts questions (verbal)
 
 ## Code test
-    Create an IRC (Internet Relay Chat) 
-    - Create a login page with options to create user if none exists. Use nicknames to identify the user.
-    - Create a chat room, where you load message history and show incoming messages real-time.
-    - Create a text box to write messages.
-    - Messages should show sender and time information. 
-    - Chat integrations: Create a bot with Giphy or Youtube that recognizes the following command in the text box: 
-        - command format: /youtube_or_giphy <string> 
-        - Look up string in the corresponding API. Suggest gifs or videos depending on the input string and the chosen API. Add funcionality to select video/gif and send it through the chat.
+    Our RV-Contact team needs to create a system where company users can be registered with the following data:
 
-## Frontend, use the following stack:
-    - Javascript
-        - React
-        - Redux
-        - Thunks/Saga
-    - Html/Css (Material ui, Boostrap, Tailwind Css, etc)
+        - First name
+        - Last name
+        - Identification number
+        - ID Type
+        - Address
+        - Phone number
+
+    For them they must have an authentication system to be able to access the platform and be able to view other registered users who are registered.
+    Where you can filter them by name, surname or identification number.
+
+    They also requested that users be able to follow each other and be able to unfollow another user.
+
+    Taking into account that the number of users of the company can reach more than 800 people, they request to be able to paginate users from 1 to 10 or 10 to 20.
+
+## Functionality
+
+    - The API should follow typical RESTful API design pattern.
+    - The data should be saved in the DB.
+    - Provide proper unit test. (Bonus)
+    - Provide proper API document. (Bonus)
+
+## What We Care About
+
+Feel free to use any open-source library as you see fit, but remember that we are evaluating your coding skills and problem solving skills.
+
+Here's what you should aim for:
+
+    - Good use of current Node.js & API design best practices.
+    - Extensible code.
+    - Good testing approach (Bonus).
+
+## Tech stack:
+    - Python (Django, Flask)
+    - Node.js (Express, NestJs)
+    - Mysql, PostgreSQL, MongoDB, etc
+    - Integration Swagger (Bonus)
     - Testing (Bonus)
 
-## Backend, choose between any of the tools below:
-    - Application:
-        - Python (Django, Flask)
-        - Node.js (Express, NestJs)
-        - Firebase or similar (Optional)
-        - Testing (Bonus)
-
 ## Platform:
-    - Deploy your app to any free platform such as Heroku, Netlify, Vercel, etc.
+    - Deploy your app to any free platform such as Heroku, etc.
 
 ## To apply for the job you must ...
     - Fork this repository. 
