@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "redvalley-chat",
+    "private_key_id": "8523685d0c82abc2a09513027fc39185273255f2",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCkRh+WOgQMiZOx\nlZlCG4TfmpkHchVxJiiW0nJC2hKfFcTv5pm/s7WJGWsNSCUktfg86bMC5pNIDNiZ\nOqI5Me/rEIln3lXZPoN0f2B5t4a/zrkaTs5QReCyikeSuQMynTVVfw9BhzUn4JWX\npF4EBEnbIFAJ6g22bRKNDT98Agqo6o6BKm/jhdYcwALxJ6D/HSZY+mO7ctoLa1zM\nhE/UqV+WIsjg7LnbgXvfpv1YwO2RKJYzSeS9wW9Nrktui+Op3cnuL95ppWpIUg9W\n92fqUGiYNKCnkI+UzWxHCWgW+voNyObQsLvBo2imNfF72DdZN28h3OWzgqtOUjj5\nqHLLrF71AgMBAAECggEAL3HRTaIT6UsSzQdX7C/mgG42JGBesP9EWcsOFSDGoAu5\nhVAkt6k/lQkyUfO0RpYHzA/zE7Nkdjq/lAHLOJmjoVB1Xvpn8QaNEOh5BK5szJj3\n/RElpSmJbAdkBIxK0CN3c+nujg5u28WRbuqZ/K8AZbk/ZJ2kuDtoUDSzUS2FxqMB\nW4HpDLKneGbjD44+WCbiy/hnpSMhvHux2S7GmdsBioLiAQ4yRHxmIjZ5JVpkDWAC\nMGnC74lVloAP3S2bhBup1ZFdr65sNAghO8jotSrArlETj0llhuxC5Z6I7t19Z4hv\nRitsIkFbK7I/dvkroEDNhrgd4EWeHFxAyhuurpSlQQKBgQDU2pUm2yGI3IT/gqA3\n/EFtU4R3yymbOwOQGg6wYk6MQzkyG5UiX07UJ4CuSCRdDpJLKOCMRR8PJNobtkDZ\nsyOM/4wjF7A7O0TOa3sk/l92FU5uDBwyvcrbDNUDUMGyVGAWNrK8Dm5o9XLvI8AE\n23CxGcmDzoktsw+0SbeM+Kc0+wKBgQDFkqFXjOLWuyrYR/4Gdo+eXZmUHSa+tgof\nFENr07ZsrRdL1/MjPhwBiy8+dWfaMnbr0cUNsBU21FtZhbCg/LCHI/BK/rJfRlbC\nDp8Kd7AqODfBNZJgg6wXXopS2S4T79zt1ZLZpSzPeS6f+WlPy0ukLace6eeNKRPQ\njqnMzLMYzwKBgC4xrfL71aBNM3P8VmcwEMb4PCR/a+0rdo98iDmRbDiWkkAkqk4G\nXyY92Hh6YaHseqVjHrByg9YWils/R323mfyMrU4kYvPH3hvqSZRyvCb1YssRR8Ff\nXToC4+vPR+o604uenVWg0CdpNWNe39puAVv+G7TGSxEm7j6TTQmEIU2nAoGBAIUg\nyJa12CPY+oXB/Old+mg7qcCj4/edsjQ+8y80+TdBavEwEiUtNLHVl3/+nHvqhTdh\noeYXQDQx41vvOZVAr7JgBQqDlK2eN9eLAp+LBqlsOCV4c6mVD+CvU4V/0gydE8Eu\nqET/h7JFdaVV6iBaXB3EpVevRNdZVoCxoLjfNc8BAoGAFemiUWGyn751bdiM1n6+\nvaXNelX72lVE6MAJyP9+IEmam9+mMjv5wi4+yE483FlTzhMGscMXYR8wgPGJsbe5\n9WgqWzkQC3/23HVCJW07KChYVr9PtPbiOSJU2yN2IanfXc+Bu2HaawIVlMvlY6Rf\n7MJQowQJeURvrPIsaR28QT8=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-sviyk@redvalley-chat.iam.gserviceaccount.com",
+    "client_id": "109713212540128804078",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-sviyk%40redvalley-chat.iam.gserviceaccount.com"
+}
