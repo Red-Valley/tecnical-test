@@ -6,6 +6,9 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - miguelaristy
+defaults:
+  run:
+    working-directory: chat/app/chat-client
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
