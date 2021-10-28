@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    container_name: instagrem-postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=db_instagrem
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    container_name: instagrem-app
+    build: .
+    command: python manage.py runserver 0.0.0.0:8003
+    volumes:
+      - .:/code
+    ports:
+      - "8003:8003"
+    depends_on:
+      - db
