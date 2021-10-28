@@ -9,6 +9,8 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ${{ github.workspace }}/chat/app/chat-client
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
@@ -18,5 +20,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_REDVALLEY_CHAT }}'
           channelId: live
           projectId: redvalley-chat
-        env:
-          PROJECT_PATH: ${{ github.workspace }}/chat/app/chat-client
