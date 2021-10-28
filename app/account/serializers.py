@@ -7,11 +7,6 @@ class AccountSerializer(serializers.ModelSerializer):
         model  = Account
         fields = '__all__'
         
-    # def to_representation(self, instance):
-    #     data = super().to_representation(instance)
-    #     return {
-    #         zq
-    #     }
     
 class FollowAccountSerializer(serializers.ModelSerializer):
     account_emis = AccountSerializer()

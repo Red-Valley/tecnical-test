@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class Account(models.Model):
     
@@ -42,4 +41,3 @@ class FollowAccount(models.Model):
         on_delete=models.CASCADE,
         related_name='account_follow'
         )
-    # historial = HistoricalRecords()
