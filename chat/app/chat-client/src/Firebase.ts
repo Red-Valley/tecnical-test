@@ -11,7 +11,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
-if ((window as any).location.hostname === "localhost") {
+if ((window as any).location.host === "localhost:3000") {
   connectDatabaseEmulator(db, "localhost", 9000);
 }
 

@@ -40,12 +40,10 @@ process.on("unhandledRejection", (e) => {
   process.exit(1);
 });
 
+admin.initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 if (process.env.NODE_ENV !== Enviroments.Producction) {
-  admin.initializeApp(firebaseConfig);
-  initializeApp(firebaseConfig);
   connectAuthEmulator(getAuth(), Emulators.AuthEndPoint);
-} else {
-  admin.initializeApp();
 }
 
 exports.api = functions.https.onRequest(new Api().express);
