@@ -22,10 +22,9 @@
     - Testing (Bonus)
 
 ## Backend, choose between any of the tools below:
-    - Application:
-        - Python (Django, Flask)
-        - Node.js (Express, NestJs)
-        - Firebase or similar (Optional)
+    - Application (Rest API):
+        - Node.js (NestJs, Express) or Python (Django, Flask)
+        - Database: MySQL, Postgres, Mongodb or similar
         - Testing (Bonus)
 
 ## Platform:
