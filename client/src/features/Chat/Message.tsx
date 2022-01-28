@@ -8,16 +8,13 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import { MessageEntity } from "../../entities/message.entity";
+import TimeAgo from "./TimeAgo";
 
 
-export interface MessageModel{
-    nickName:string
-    timeAgo:string,
-    text:string  
-}
 export interface MessageProps {
     isLoading:boolean,
-  message:MessageModel | null
+  message:MessageEntity | null
 }
 
 export default function Messages({isLoading, message}:MessageProps) {
@@ -40,10 +37,16 @@ export default function Messages({isLoading, message}:MessageProps) {
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
-          primary={message?.nickName}
+          primary={message?.userName}
           secondary={<>
-          {message?.text}
-          {message?.timeAgo}
+          <div>
+          {message?.body}
+          </div>
+          
+          <div>
+          <TimeAgo timestamp={message?.createdAt}></TimeAgo>
+          </div>
+          
           </>}        
         />
       </ListItem>)  

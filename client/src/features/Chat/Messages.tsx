@@ -6,16 +6,17 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import Message, { MessageModel } from "./Message";
+import Message from "./Message";
+import { MessageEntity } from "../../entities/message.entity";
 
 
 
 export interface MessagesProps{
-  messages:MessageModel[]
+  messages:MessageEntity[]
 }
 
 export default function Messages({messages}:MessagesProps) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
     let listMessages: any[] = [];
 
