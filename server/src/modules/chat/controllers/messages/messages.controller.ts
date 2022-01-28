@@ -9,15 +9,15 @@ export class MessagesController {
     constructor(private service: MessagesService) { }
 
 
-
     @Get(':id')
     async getById(@Param() params) {
-        return await this.service.getMessage(params.id).then();
+        return await this.service.getMessageById(params.id).then();
     }
 
     @Get()
     async get() {
-        return await this.service.getMessages().then();   
+        return await this.service.getLastMessages(500).then();
+        //return await this.service.getMessages().then();   
      }
 
 

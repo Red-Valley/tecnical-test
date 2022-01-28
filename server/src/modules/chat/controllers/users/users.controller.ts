@@ -3,26 +3,27 @@ import { UserEntity } from '../../entities/user.entity';
 import { UsersService } from '../../services/users/users.service';
 
 
+
 @Controller('users')
 export class UsersController {
 
     constructor(private service: UsersService) { }
 
 
-
     @Get(':id')
     async getById(@Param() params) {
-        return await this.service.getUser(params.id).then();
+        return await this.service.getUserById(params.id).then();
     }
 
     @Get()
     async get() {
+        
         return await this.service.getUsers().then();   
      }
 
 
     @Post()
-    async create(@Body() user: UserEntity) {
+    async create(@Body() user: UserEntity) {        
         return await this.service.createUser(user).then();
     }
 

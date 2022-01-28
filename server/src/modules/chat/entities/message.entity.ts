@@ -1,8 +1,7 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({name:'messages'})
+@Entity({ name: 'messages' })
 export class MessageEntity {
-  
   @PrimaryColumn()
   @Column({
     primary: true,
@@ -12,13 +11,17 @@ export class MessageEntity {
   id: string;
 
   @Column()
-  code: string;
-  
-  
+  userName: string;
+
   @Column()
-  name: string;
+  body: string;
 
+  @Column()
+  createdAt: Date;
 
-  
+  @Column()
+  status: string;
 
+  @Column()
+  active: boolean;
 }

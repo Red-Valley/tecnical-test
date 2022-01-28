@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MessageEntity } from './modules/chat/entities/Message.entity';
 import { UserEntity } from './modules/chat/entities/user.entity';
 import { ChatModule } from './modules/chat/chat.module';
+import { ToolsService } from './modules/chat/services/tools/tools.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -17,6 +18,7 @@ import { ChatModule } from './modules/chat/chat.module';
     autoLoadEntities: true
     
   }),ChatModule],
+  providers: [ToolsService],
   
   
 })

@@ -15,7 +15,13 @@ export class UsersService {
    
       }
 
-    async getUser(_id: string): Promise<UserEntity> {
+      async getUserByUserName(_userName: string): Promise<UserEntity> {
+        return await this.usersRepository.findOne({where: [{ "userName": _userName }]
+        });
+   
+      }
+
+    async getUserById(_id: string): Promise<UserEntity> {
         return await this.usersRepository.findOne({where: [{ "id": _id }]
         });
    

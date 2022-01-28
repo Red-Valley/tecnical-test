@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({name:'users'})
+@Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryColumn()
   @Column({
@@ -8,7 +8,7 @@ export class UserEntity {
     type: 'char',
     length: 36,
   })
-   id: string;
+  id: string;
 
   @Column()
   userName: string;
@@ -16,20 +16,15 @@ export class UserEntity {
   @Column()
   hash: string;
 
-  
+  @Column()
+  salt: string;
+
   @Column()
   createdAt: string;
-
-  @Column()
-  updatedAt: string;
-
-  @Column()
-  deletedAt: string;
 
   @Column()
   status: string;
 
   @Column()
   active: boolean;
-
 }
