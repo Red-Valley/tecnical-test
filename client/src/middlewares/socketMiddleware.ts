@@ -1,7 +1,7 @@
 import {
   userJoined,
   userLeft,
-  messageReceived,  
+  messageReceived,
 } from "../features/Chat/chatSlice";
 import { connected, disconnected } from "../features/Socket/socketSlice";
 import { MessageEntity } from "../entities/message.entity";
@@ -10,8 +10,7 @@ const socketMiddleware = (store: any) => {
   const onConnectionChange = (isConnected: boolean) => {
     if (!isConnected) {
       store.dispatch(disconnected(isConnected));
-    }else
-    {
+    } else {
       store.dispatch(connected(isConnected));
     }
   };
@@ -22,40 +21,38 @@ const socketMiddleware = (store: any) => {
     store.dispatch(userJoined(messages));
   };
 
-  const socket = new SocketInterface(onConnectionChange, onMessage, onJoinedRoom);
+  const socket = new SocketInterface(
+    onConnectionChange,
+    onMessage,
+    onJoinedRoom
+  );
 
   return (next: any) => (action: any) => {
-    const chatState = store.getState().chat;
-    switch (action.type) {
-      case "chat/connecting":
-        socket.connect("", "3000");
-        break;
-      case "chat/connected":
-        socket.listenMessages();
-        socket.joinedRoom(chatState.userName);
-        break;
-      case "chat/logout":
-        socket.disconnect(chatState.userName);   
-        break;
+    if (typeof action === "function") {
+      return action(store.dispatch, store.getState);
+    } else {
+      const chatState = store.getState().chat;
+      switch (action.type) {
+        case "chat/connecting":
+          socket.connect("", "3000");
+          break;
+        case "chat/connected":
+          socket.listenMessages();
+          socket.joinedRoom(chatState.userName);
+          break;
+        case "chat/logout":
+          socket.disconnect(chatState.userName);
+          break;
         case "chat/userLeft":
-          socket.disconnect(chatState.userName);   
+          socket.disconnect(chatState.userName);
           break;
-        case "chat/disconnecting":          
-          store.dispatch(userLeft(chatState.userName));  
+        case "chat/disconnecting":
+          store.dispatch(userLeft(chatState.userName));
           break;
-      
-      case "chat/sendMessage":      
-      let newMessage:MessageEntity ={
-        id:null,
-        body:action.payload,
-        userName:chatState.userName,
-        createdAt:new Date().toJSON()
-      }  
-        socket.messageSent(newMessage);        
-        break;
-
-      default:
-        break;
+        case "textBoxMessage/sendMessage":
+          socket.messageSent(action.payload);
+          break;
+      }
     }
 
     return next(action);

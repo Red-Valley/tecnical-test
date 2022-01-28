@@ -9,9 +9,7 @@ function Layout() {
     <div className="layout">
       <Header />
       <div className="main-content">
-      <Container maxWidth="lg">
-      <Outlet />
-      </Container>
+       <Outlet />
       </div>      
     </div>
   );

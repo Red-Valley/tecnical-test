@@ -8,6 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Message from "./Message";
 import { MessageEntity } from "../../entities/message.entity";
+import { Skeleton } from "@mui/material";
 
 
 
@@ -20,11 +21,19 @@ export default function Messages({messages}:MessagesProps) {
 
     let listMessages: any[] = [];
 
+    let messageSkeleton = (
+      <li className="list-item">
+      <div>
+      <Skeleton animation="wave" />     
+      </div>    
+      </li>
+    );
+
   if (messages.length==0)
   {
     
-    for (let index = 0; index < 13; index++) {      
-      listMessages.push(<Message key={index} isLoading={true} message={null} ></Message>);
+    for (let index = 0; index < 5; index++) {      
+      listMessages.push(messageSkeleton);
     }
   }
     else
@@ -37,9 +46,8 @@ export default function Messages({messages}:MessagesProps) {
   
 
   return (
-    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-       { listMessages       
-      }                
-  </List>
+    <ul className="list">
+       { listMessages}                
+  </ul>
   );
 }

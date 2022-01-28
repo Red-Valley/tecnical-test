@@ -10,58 +10,54 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import { MessageEntity } from "../../entities/message.entity";
 import TimeAgo from "./TimeAgo";
+import { createTheme } from "@mui/material/node_modules/@mui/system";
 
 
 export interface MessageProps {
     isLoading:boolean,
-  message:MessageEntity | null
+  message:MessageEntity
+}
+
+function createHTML(media:string) {
+  return { __html: media };
 }
 
 export default function Messages({isLoading, message}:MessageProps) {
-    let messageSkeleton = (
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Skeleton animation="wave" variant="circular" width={40} height={40} />
-          </ListItemAvatar>
-          <ListItemText>
-            <Skeleton animation="wave" />
-            <Skeleton animation={false} />
-          
-          </ListItemText>
-        </ListItem>
-      );
+
       let messageComponent;
-      if (message?.userName=='room')
+      if (message.userName=='room')
       {
-        messageComponent = <ListItem alignItems="flex-start">   
-        <ListItemText
-          secondary={<>        
-          {message?.body}           
-          <TimeAgo timestamp={message?.createdAt}></TimeAgo>             
-          </>}        
-        />
-      </ListItem>;
+        messageComponent =
+        <li className="list-item-room">
+          <span>
+            {message.body}     
+          </span>    <TimeAgo timestamp={message.createdAt}></TimeAgo>    
+          </li>        ;
+
+
       }else
       {
-        messageComponent = <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt={message?.userName.toUpperCase()} src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary={message?.userName}
-          secondary={<>
-                {message?.body}     
-          <TimeAgo timestamp={message?.createdAt}></TimeAgo>      
-          
-          </>}        
-        />
-      </ListItem>;
+
+        messageComponent =
+        <li className="list-item">
+       <span className="nickName">
+              {message.userName}  
+        </span>         
+        <TimeAgo timestamp={message.createdAt}></TimeAgo>     
+        {
+        message.body.indexOf('<img') || message.body.indexOf('<iframe')?
+        <div dangerouslySetInnerHTML={createHTML(message.body)}/>
+        :
+        <div>{message.body}</div>
+        }     
+          </li>;
+
       }
       
 
    
     
-    return(isLoading?messageSkeleton:messageComponent);
+    return(messageComponent);
 
     
 }

@@ -1,4 +1,4 @@
-/* body {
+body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -6,18 +6,33 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-.main-content {
-  margin-top: 70px;
+.list{
+  list-style-type: none;
 }
 
-.chatRoomContent {
-  background-color: azure;
+.list-item{
+padding: 10px;
+margin-right: 10%;
+border-bottom: 1px solid #d1bbbb;
+
+}
+
+.list-item-room{
+  font-size: 11px;
+  color: rgb(116, 116, 248);
+}
+
+.nickName{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.timeAgo{
+  font-size: 12px;
+  font-style: italic;
+}
+.main-content {
+  margin-top: 70px;
 }
 
 .chatRoomFooter {

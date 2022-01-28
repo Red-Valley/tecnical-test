@@ -1,4 +1,3 @@
-import { SafetyDivider } from "@mui/icons-material";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { MessageEntity } from "../../entities/message.entity";
 import { RootState } from "../../store/store";
@@ -43,16 +42,12 @@ const chatSlice = createSlice({
     },
     messageReceived: (state, action) => {
       state.messages = state.messages.concat(action.payload);
-    },sendMessage:(state, action)=>{    
-    
-    },  
-    messageSent: (state, action) => {
-      
-    },
+    },    
   },
+
 });
 
-export const { login,logout, userJoined, messageReceived, messageSent,sendMessage, userLeft } =
+export const { login,logout, userJoined, messageReceived, userLeft } =
   chatSlice.actions;
 
 export const selectAllOrderedMessages = (state: RootState) =>
