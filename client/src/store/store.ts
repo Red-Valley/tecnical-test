@@ -1,11 +1,10 @@
-import { createStore,configureStore, ThunkAction, applyMiddleware, Action, combineReducers } from '@reduxjs/toolkit';
+import { createStore,ThunkAction, applyMiddleware, Action, combineReducers } from '@reduxjs/toolkit';
 import chatReducer from '../features/Chat/chatSlice';
 import socketReducer from '../features/Socket/socketSlice';
-import socketMiddleware from '../features/Socket/middleware';
+import socketMiddleware from '../middlewares/socketMiddleware';
 
 const rootReducer = combineReducers({
-  // Define a top-level state field named `todos`, handled by `todosReducer`
-  'chat':chatReducer,
+    'chat':chatReducer,
     'socket':socketReducer
 })
 

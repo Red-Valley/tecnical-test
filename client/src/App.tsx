@@ -3,26 +3,24 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { store } from "./store/store";
 
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import ChatRoom from "./pages/ChatRoom";
+import Home from "./pages/Home/Home";
+import Login from "./features/Chat/Login";
+import ChatRoom from "./pages/ChatRoom/ChatRoom";
 
-
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <Provider store={store}>
-    <Layout>
       <BrowserRouter>
         <Routes>
-        <Route path="/home" element={<Home />} />       
-          <Route path="/login" element={<Login />} />                      
-          <Route path="/chatRoom"  element={<ChatRoom />} />     
+          <Route  element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/chatRoom" element={<ChatRoom />} />
+          </Route>
         </Routes>
       </BrowserRouter>
-    </Layout>
-  </Provider>
+    </Provider>
   );
 }
 

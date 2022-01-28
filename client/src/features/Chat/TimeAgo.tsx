@@ -2,7 +2,7 @@ import React from 'react'
 import { parseISO, formatDistanceToNow } from 'date-fns'
 
 export interface TimeAgoProps{
-  timestamp?:string
+  timestamp?:string |null
 }
 
 export default function TimeAgo({timestamp}:TimeAgoProps){
@@ -14,7 +14,7 @@ export default function TimeAgo({timestamp}:TimeAgoProps){
   }
 
   return (
-    <span title={timestamp}>
+    <span>
       &nbsp; <i>{timeAgo}</i>
     </span>
   )

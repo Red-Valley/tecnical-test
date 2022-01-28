@@ -30,27 +30,38 @@ export default function Messages({isLoading, message}:MessageProps) {
           </ListItemText>
         </ListItem>
       );
-    
-    return(isLoading?messageSkeleton:(
-        <ListItem alignItems="flex-start">
+      let messageComponent;
+      if (message?.userName=='room')
+      {
+        messageComponent = <ListItem alignItems="flex-start">   
+        <ListItemText
+          secondary={<>        
+          {message?.body}           
+          <TimeAgo timestamp={message?.createdAt}></TimeAgo>             
+          </>}        
+        />
+      </ListItem>;
+      }else
+      {
+        messageComponent = <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt={message?.userName.toUpperCase()} src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
           primary={message?.userName}
           secondary={<>
-          <div>
-          {message?.body}
-          </div>
-          
-          <div>
-          <TimeAgo timestamp={message?.createdAt}></TimeAgo>
-          </div>
+                {message?.body}     
+          <TimeAgo timestamp={message?.createdAt}></TimeAgo>      
           
           </>}        
         />
-      </ListItem>)  
-        )
+      </ListItem>;
+      }
+      
+
+   
+    
+    return(isLoading?messageSkeleton:messageComponent);
 
     
 }

@@ -9,13 +9,24 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { useAppDispatch } from "../../store/hooks";
+import {logout} from '../../features/Chat/chatSlice';
+import { useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
-   
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();  
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
    
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElUser(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout(null));
+    navigate("/");
   };
 
   const handleCloseUserMenu = () => {
@@ -66,7 +77,7 @@ const Header = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-          <MenuItem onClick={()=>console.log('')}>Logout</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -75,3 +86,5 @@ const Header = () => {
   );
 };
 export default Header;
+
+

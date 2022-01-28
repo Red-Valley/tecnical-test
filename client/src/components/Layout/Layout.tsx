@@ -1,18 +1,16 @@
 import Header from "../Header";
 import Container from '@mui/material/Container';
+import { Outlet } from "react-router-dom";
 
 
-interface WrapperProps {
-  children: React.ReactNode;
-}
 
-function Layout({ children }: WrapperProps) {
+function Layout() {
   return (
     <div className="layout">
       <Header />
       <div className="main-content">
       <Container maxWidth="lg">
-      {children}
+      <Outlet />
       </Container>
       </div>      
     </div>

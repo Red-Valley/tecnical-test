@@ -1,16 +1,17 @@
 import * as io from "socket.io-client";
-import { MessageEntity } from "../../../entities/message.entity";
+import { MessageEntity } from "../entities/message.entity";
 
 export const EVENTS = {
   CONNECT: "connect",
   JOINED_ROOM: "joinedRoom",
   DISCONNECT: "disconnect",
   MESSAGES: "messages",
+  USERS: "users",
   LEFT_ROOM: "leftRoom",
   MESSAGE_SENT: "messageSent",
 };
 
-export default class Socket {
+export default class SocketInterface {
   public user: string;
   public port: string;
   private onChange: (isConnected: boolean) => void;
@@ -43,8 +44,9 @@ export default class Socket {
     this.socket.on(EVENTS.CONNECT, this.onConnected);
   };
   
-  public messages =()=>{  
+  public listenMessages =()=>{  
     this.socket.on(EVENTS.MESSAGES, this.onMessage);  
+    this.socket.on(EVENTS.USERS, this.onMessage);  
   }
 
   public onConnected = () => {
@@ -58,6 +60,7 @@ export default class Socket {
   public joinedRoom = (userName:string) => {
     if (typeof this.socket.emit === "function") {
       this.socket.emit(EVENTS.JOINED_ROOM, userName, this.onJoinedRoom);
+
     } else {
       console.error(`Cannot emit socket event:${EVENTS.MESSAGE_SENT}. Socket.io not connected.`);
     }

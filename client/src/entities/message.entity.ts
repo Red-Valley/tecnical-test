@@ -1,6 +1,6 @@
 
 export interface MessageEntity {   
-  id: string,
+  id: string|null,
   userName: string, 
   body: string,
   createdAt: string
