@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Put, Delete,Param} from '@nestjs/common';
-import { MessageEntity } from '../../entities/message.entity';
+import { MessageEntity } from '../../services/messages/entities/message.entity';
 import { MessagesService } from '../../services/messages/messages.service';
 
 
@@ -23,7 +23,13 @@ export class MessagesController {
 
     @Post()
     async create(@Body() message: MessageEntity) {
-        return await this.service.createMessage(message).then();
+        try {
+            message.createdAt = new Date();            
+            let res = await this.service.createMessage(message).then();    
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 
     @Put()

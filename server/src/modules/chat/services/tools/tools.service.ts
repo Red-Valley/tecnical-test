@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import crypto  from 'crypto'
-import {uuid} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class ToolsService {
 
@@ -51,7 +51,7 @@ export class ToolsService {
     
     async createUUID():Promise<string>{
       var promise = new Promise<string>(function(resolve, reject){      
-          let code = uuid.v4();
+          let code = uuidv4();
           resolve(code);   
     }); 
     return promise;

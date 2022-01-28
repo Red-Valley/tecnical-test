@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
-
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { IMessage } from '../interfaces/message.interface';
 @Entity({ name: 'messages' })
-export class MessageEntity {
+export class MessageEntity implements IMessage {
   @PrimaryColumn()
   @Column({
     primary: true,
@@ -18,10 +18,5 @@ export class MessageEntity {
 
   @Column()
   createdAt: Date;
-
-  @Column()
-  status: string;
-
-  @Column()
-  active: boolean;
+ 
 }

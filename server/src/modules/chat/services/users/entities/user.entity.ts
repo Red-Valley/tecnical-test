@@ -22,9 +22,4 @@ export class UserEntity {
   @Column()
   createdAt: string;
 
-  @Column()
-  status: string;
-
-  @Column()
-  active: boolean;
 }

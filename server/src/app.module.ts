@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MessageEntity } from './modules/chat/entities/Message.entity';
-import { UserEntity } from './modules/chat/entities/user.entity';
+import { MessageEntity } from './modules/chat/services/messages/entities/message.entity';
+import { UserEntity } from './modules/chat/services/users/entities/user.entity';
 import { ChatModule } from './modules/chat/chat.module';
 import { ToolsService } from './modules/chat/services/tools/tools.service';
 

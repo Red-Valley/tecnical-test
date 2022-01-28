@@ -1,15 +1,12 @@
-import {
-  MessageBody,
-  SubscribeMessage,
+import {SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  WsResponse,
-} from '@nestjs/websockets';
-import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+  } from '@nestjs/websockets';
+
 import { Server } from 'socket.io';
-import { MessageEntity } from '../entities/Message.entity';
+import { MessageEntity } from '../services/messages/entities/message.entity';
 import { MessagesService } from '../services/messages/messages.service';
+import { ToolsService } from '../services/tools/tools.service';
 import { UsersService } from '../services/users/users.service';
 @WebSocketGateway({
   cors: {
@@ -20,7 +17,7 @@ export class ChatSocketGateway {
   @WebSocketServer()
   server: Server;
 
-  constructor(private usersService: UsersService,private messagesService: MessagesService) { }
+  constructor(private toolsService:ToolsService,private usersService: UsersService,private messagesService: MessagesService) { }
 
   @SubscribeMessage('joinedRoom')
   async handleJoinRoom(client: any, payload: string): Promise<MessageEntity[]> {  
@@ -30,17 +27,14 @@ export class ChatSocketGateway {
     if (user)
     {
       let messages = await this.messagesService.getLastMessages(500).then();
-    
-      let newStatusMessage:MessageEntity = {
-        id:null,        
+    let newId = await this.toolsService.createUUID().then();       
+      let newUserEntered:MessageEntity = {
+        id: newId,        
         body: `${payload} has entered to this room.`,
-        userName:'admin',        
-        createdAt:new Date(),  
-        status:'Active',
-        active:true,
-
+        userName:'room',        
+        createdAt:new Date()     
       }
-      this.server.emit('messages',newStatusMessage);
+      this.server.emit('users',newUserEntered);
       return messages;
     }
     return [];
@@ -48,13 +42,16 @@ export class ChatSocketGateway {
   }
 
   @SubscribeMessage('messageSent')
-  async handleMessageSent(client:any, payload: any) {  
-    let msg = payload;
-    //Created message.
-    //let message=await this.messagesService.createMessage(payload.msg).then();
-    if (msg)
+  async handleMessageSent(client:any, message: any) {  
+    if (!message.id)
+    {
+      message.id = await this.toolsService.createUUID().then();        
+    }    
+    message.createdAt = new Date();   
+    await this.messagesService.createMessage(message).then();
+    if (message)
     {      
-      this.server.emit('messages',msg);
+      this.server.emit('messages',message);
     }
     return ;   
     
@@ -62,16 +59,14 @@ export class ChatSocketGateway {
 
   @SubscribeMessage('leftRoom')
   async handleLeftRoom(client:any, payload: any) {  
-    let newStatusMessage:MessageEntity = {
-      id:null,        
-      body: `${payload} has entered to this room.`,
-      userName:'admin',        
-      createdAt:new Date(),   
-      status:'Active',
-      active:true,
-
+    let newId = await this.toolsService.createUUID().then();       
+      let userLeft:MessageEntity = {
+        id: newId,         
+      body: `${payload} has left to this room.`,
+      userName:'room',        
+      createdAt:new Date()     
     }
-    this.server.emit('messages',newStatusMessage);
+    this.server.emit('users',userLeft);
     return ;   
     
   }
