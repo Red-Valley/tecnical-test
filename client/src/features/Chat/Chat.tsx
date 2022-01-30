@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import ListMessages from "./ListMessages";
 import TextBoxMessage from "../../features/Chat/TextBoxMessage";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {  selectCurrentChatStatus, ChatStateStatuses } from "../Chat/chatSlice";
+import {  selectCurrentChatStatus, ChatStateStatuses, fetchConnectedUsers } from "../Chat/chatSlice";
 import { selectAllOrderedMessages } from "./chatSlice";
 import { useEffect } from "react";
 
@@ -15,7 +15,6 @@ function Chat() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();  
   
-  console.log(chatStatus);
   
   return (
     <div className="chatRoom">

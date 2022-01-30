@@ -6,11 +6,13 @@ import {
   combineReducers,
 } from "@reduxjs/toolkit";
 import userReducer from "../features/User/userSlice";
+import signInReducer from "../features/User/signInSlice";
 import chatReducer from "../features/Chat/chatSlice";
 import textBoxMessageReducer from "../features/Chat/textBoxMessageSlice";
 import socketMiddleware from "../middlewares/socketMiddleware";
 
 const rootReducer = combineReducers({
+  sigIn: signInReducer,  
   user: userReducer,  
   chat: chatReducer,  
   textBoxMessage: textBoxMessageReducer,

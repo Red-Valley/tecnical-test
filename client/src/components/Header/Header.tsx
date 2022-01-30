@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logout } from "../../features/User/userSlice";
 import { useNavigate } from "react-router-dom";
 import { selectCurrentUser } from "../../features/User/userSlice";
-import { selectCurrentTotalUsers } from "../../features/Chat/chatSlice";
+import { disconnecting, fetchConnectedUsers, selectCurrentTotalUsers } from "../../features/Chat/chatSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,8 +12,18 @@ const Header = () => {
   let user =useAppSelector(selectCurrentUser); 
   let totalUsers =useAppSelector(selectCurrentTotalUsers); 
 
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     //dispatch(fetchConnectedUsers());
+  // }, 3000)
+    
+
+  // }, []);
+
+  
+
   const handleLogout = () => {
-    dispatch(logout(null));
+    dispatch(disconnecting(false));    
     navigate("/");
   };
 

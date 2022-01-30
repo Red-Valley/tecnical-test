@@ -5,16 +5,16 @@ import {
   userJoined,
   userLeft,
   messageReceived,
-  disconnecting,
   loadHistory,
+  joined,
 } from "../features/Chat/chatSlice";
 import { MessageEntity } from "../entities/message.entity";
 import SocketInterface from "./Socket";
+import { logout } from "../features/User/userSlice";
 
 const socketMiddleware = (store: any) => {
   const onConnectionChange = (isConnected: boolean) => {
-    console.log("La conexion se: ", isConnected);
-    if (!isConnected) {
+     if (!isConnected) {
       store.dispatch(disconnected(isConnected));
     } else {
       store.dispatch(connecting(isConnected));
@@ -24,22 +24,30 @@ const socketMiddleware = (store: any) => {
   const onMessage = (message: MessageEntity) =>
     store.dispatch(messageReceived(message));
 
+    const onUserJoined = (user: any) =>
+    store.dispatch(userJoined(user));
+
+    const onUserLeft = (nickName: string) =>
+    store.dispatch(userLeft(nickName));
+    
   const onJoinedRoom = (messages: MessageEntity[]) => {
     
     store.dispatch(loadHistory(messages));
     store.dispatch(connected(true)); 
     const userState = store.getState().user;
-    store.dispatch(userJoined(userState.currentUser)); 
+    store.dispatch(joined(userState.currentUser)); 
   };
 
   const socket = new SocketInterface(
     onConnectionChange,
     onMessage,
-    onJoinedRoom
+    onJoinedRoom,
+    onUserJoined,
+    onUserLeft
   );
 
   return (next: any) => (action: any) => {
-    console.log(action);
+  
     if (typeof action === "function") {
       return action(store.dispatch, store.getState);
     } else {
@@ -50,19 +58,17 @@ const socketMiddleware = (store: any) => {
           break;
         case "chat/connecting":
           socket.listenMessages();
+          socket.listenUserJoined();
+          socket.listenUserLeft();
           socket.joinedRoom(userState.currentUser.nickName);
           break;           
           case "user/logout":
-          store.dispatch(disconnecting(false));
+            socket.leftRoom(userState.currentUser.nickName);
+            store.dispatch(disconnected(false));
           break;
         case "chat/disconnecting":
           store.dispatch(userLeft(userState.currentUser.nickName));
-          break;
-        case "chat/userLeft":
-          socket.disconnect(userState.currentUser.nickName);
-          break;
-        case "chat/disconnected":
-          store.dispatch(disconnected(false));
+          store.dispatch(logout(true));  
           break;
         case "textBoxMessage/sendMessage":
           socket.messageSent(action.payload);

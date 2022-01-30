@@ -10,7 +10,6 @@ function Login() {
   const navigate = useNavigate();
 
   const userStatus = useAppSelector(selectUserStatus);
-  const currentUser = useAppSelector(selectCurrentUser);
   const [nickName, setNickName] = useState("");
   const [hash, setHash] = useState("");
   const [loginRequestStatus, setLoginRequestStatus] = useState('idle')

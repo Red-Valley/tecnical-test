@@ -12,7 +12,7 @@ function ChatRoom() {
   let userStatus = useAppSelector((state) => selectUserStatus(state));
   useEffect(() => {
     
-    if (userStatus != UserStateStatuses.online) {
+    if (userStatus !== UserStateStatuses.online) {
       navigate("/");
     }
   }, [userStatus,navigate]);

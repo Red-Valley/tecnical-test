@@ -1,16 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { UserEntity } from "../../entities/user.entity";
-import { RootState, store } from "../../store/store";
+import { RootState } from "../../store/store";
 import axios from "axios";
 
-const API_URL = "http://localhost/api/users";
+const API_URL = "http://localhost/api";
 
 export enum UserStateStatuses {
   idle,
   login,
-  registering,
   online,
-  sigIn,
   connecting,
   failed,
   disconnecting,
@@ -49,24 +47,10 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
     logout: (state, action) => {
-      state.status = UserStateStatuses.disconnecting;
+      state.status = UserStateStatuses.idle;
       state.currentUser = null;
     },
-  },
-  extraReducers(builder) {
-    builder
-      
-      .addCase(signIn.pending, (state, action) => {
-        state.status = UserStateStatuses.registering;
-      })
-      .addCase(signIn.rejected, (state, action) => {
-        state.status = UserStateStatuses.failed;
-        state.error = action.error.message;
-      })
-      .addCase(signIn.fulfilled, (state, action) => {
-        state.status = UserStateStatuses.idle;
-      });
-  },
+   },
 });
 
 export function tryLogin(user: any) {
@@ -74,7 +58,7 @@ export function tryLogin(user: any) {
     try {
            
       dispatch(login(user));
-      const response: any = await axios.post(`${API_URL}/login`, user).then();
+      const response: any = await axios.post(`${API_URL}/users/login`, user).then();
       if (response.data) {
         dispatch(logged(response.data));
         return response.data;
@@ -85,21 +69,6 @@ export function tryLogin(user: any) {
     }
   };
 }
-
-export const checkAvailableNickName = createAsyncThunk(
-  "user/checkAvailableNickName",
-  async (nickName: string) => {
-    const response = await axios
-      .get(`${API_URL}/isNickNameValid/` + nickName)
-      .then();
-    return response.data;
-  }
-);
-
-export const signIn = createAsyncThunk("user/sigIn", async (user: any) => {
-  const response = await axios.post(`${API_URL}/create`, user).then();
-  return response.data;
-});
 
 export const {login, failed, logged, logout } = userSlice.actions;
 

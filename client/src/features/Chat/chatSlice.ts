@@ -2,6 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { MessageEntity } from "../../entities/message.entity";
 import { UserEntity } from "../../entities/user.entity";
 import { RootState } from "../../store/store";
+import axios from "axios";
+
+const API_URL = "http://localhost/api";
+
 
 export enum ChatStateStatuses{
       idle,
@@ -40,9 +44,19 @@ const chatSlice = createSlice({
     },
     loadHistory:(state, action)=>{             
       state.status = ChatStateStatuses.connected;           
-      state.messages = state.messages.concat(action.payload);
+      state.messages = action.payload;
     },
-    userJoined: (state, action) => {      
+    loadUsers:(state, action)=>{             
+      state.users = action.payload;
+    },
+    userJoined: (state, action) => {    
+      let userIndex= state.users.findIndex(x=>x.nickName==action.payload.nickName);
+      if(userIndex==-1)
+      {
+        state.users.push(action.payload);            
+      }      
+    },
+    joined: (state, action) => {      
       state.status = ChatStateStatuses.joined;
       let userIndex= state.users.findIndex(x=>x.nickName==action.payload.nickName);
       if(userIndex==-1)
@@ -54,14 +68,13 @@ const chatSlice = createSlice({
       state.status = ChatStateStatuses.disconnecting;
     },
     userLeft: (state, action) => {   
-      let userIndex= state.users.findIndex(x=>x.nickName==action.payload.nickName);
+      let userIndex= state.users.findIndex(x=>x.nickName==action.payload);
       if (state.users.length==1)
       {
           state.users = [];
       }else{
         state.users.splice(userIndex,1);
-      }      
-      state.messages.push(action.payload.message);
+      }            
     },
     messageReceived: (state, action) => {
       state.messages = state.messages.concat(action.payload);
@@ -75,7 +88,25 @@ const chatSlice = createSlice({
 
 });
 
-export const { connected,connecting, loadHistory,userJoined, messageReceived,disconnecting, userLeft, disconnected } =
+
+   export function fetchConnectedUsers() {
+      return async function fetchConnectedUsersThunk(dispatch: any, getState: any) {
+        try {
+
+    const response = await axios
+      .get(`${API_URL}/users/status/connected`)
+      .then();
+      if (response.data) {
+        dispatch(loadUsers(response.data));
+        return response.data;
+      }   
+  } catch (error) {
+
+  }
+};
+}
+
+export const { connected,connecting, loadHistory,loadUsers,joined, userJoined, messageReceived,disconnecting, userLeft, disconnected } =
   chatSlice.actions;
 
 export const selectAllOrderedMessages = (state: RootState) =>

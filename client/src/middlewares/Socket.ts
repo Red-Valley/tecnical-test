@@ -6,7 +6,8 @@ export const EVENTS = {
   JOINED_ROOM: "joinedRoom",
   DISCONNECT: "disconnect",
   MESSAGES: "messages",
-  USERS: "users",
+  USER_JOINED: "userJoined",
+  USER_LEFT: "userLeft",
   LEFT_ROOM: "leftRoom",
   MESSAGE_SENT: "messageSent",
 };
@@ -16,6 +17,8 @@ export default class SocketInterface {
   public port: string;
   private onChange: (isConnected: boolean) => void;
   private onMessage: (message: MessageEntity) => void;
+  private onUserJoined: (user: any) => void;
+  private onUserLeft: (nickName: string) => void;
   private onJoinedRoom: (message: MessageEntity[]) => void;
   private socket: any;
 
@@ -23,11 +26,15 @@ export default class SocketInterface {
 
     onChange: (isConnected: boolean) => void,
     onMessage: (message: MessageEntity) => void,
-    onJoinedRoom: (messages: MessageEntity[]) => void
+    onJoinedRoom: (messages: MessageEntity[]) => void,
+    onUserJoined: (user: any) => void,
+    onUserLeft: (nickName: string) => void
   ) {
     this.onChange = onChange;
     this.onJoinedRoom = onJoinedRoom;
     this.onMessage = onMessage;
+    this.onUserJoined = onUserJoined;
+    this.onUserLeft = onUserLeft;
  
 
     this.socket = "";
@@ -46,7 +53,12 @@ export default class SocketInterface {
   
   public listenMessages =()=>{  
     this.socket.on(EVENTS.MESSAGES, this.onMessage);  
-    this.socket.on(EVENTS.USERS, this.onMessage);  
+  }
+  public listenUserLeft =()=>{  
+    this.socket.on(EVENTS.USER_LEFT, this.onUserLeft);  
+  }
+  public listenUserJoined =()=>{  
+    this.socket.on(EVENTS.USER_JOINED, this.onUserJoined);  
   }
 
   public onConnected = () => {
@@ -62,7 +74,16 @@ export default class SocketInterface {
       this.socket.emit(EVENTS.JOINED_ROOM, nickName, this.onJoinedRoom);
 
     } else {
-      console.error(`Cannot emit socket event:${EVENTS.MESSAGE_SENT}. Socket.io not connected.`);
+      console.error(`Cannot emit socket event:${EVENTS.JOINED_ROOM}. Socket.io not connected.`);
+    }
+  };
+
+  public leftRoom = (nickName:string) => {
+    if (typeof this.socket.emit === "function") {
+      this.socket.emit(EVENTS.LEFT_ROOM, nickName);
+
+    } else {
+      console.error(`Cannot emit socket event:${EVENTS.LEFT_ROOM}. Socket.io not connected.`);
     }
   };
 
@@ -74,15 +95,13 @@ export default class SocketInterface {
     }
   };
 
-  public disconnect = (nickName:string) =>{ 
+  public disconnect = () =>{ 
   
     if (typeof this.socket.emit === "function") {
         this.socket.close(this.onDisconnected);
     } else {
-      console.error(`Cannot emit socket event:${EVENTS.LEFT_ROOM}. Socket.io not connected.`);
-    }
-
-    
+      console.error(`Cannot emit socket event:${EVENTS.DISCONNECT}. Socket.io not connected.`);
+    }   
   
   }
 }
