@@ -10,9 +10,10 @@ import { MessagesService } from './services/messages/messages.service';
 import { MessagesController } from './controllers/messages/messages.controller';
 import { ChatSocketGateway } from './gateways/chat-socket.gateway';
 import { ToolsService } from './services/tools/tools.service';
+import { UserRoomEntity } from './services/users/entities/user-room.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([UserEntity, MessageEntity])],
+    imports: [TypeOrmModule.forFeature([UserEntity, MessageEntity, UserRoomEntity])],
     providers: [ToolsService, ChatSocketGateway,UsersService, MessagesService],
     controllers: [UsersController, MessagesController],
 })

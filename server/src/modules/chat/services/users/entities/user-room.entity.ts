@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({ name: 'users' })
-export class UserEntity {
+@Entity({ name: 'users_rooms' })
+export class UserRoomEntity {
   @PrimaryColumn()
   @Column({
     primary: true,
@@ -9,18 +9,13 @@ export class UserEntity {
     length: 36,
   })
   id: string;
+  
+  @Column()
+  roomId: string;
 
   @Column()
   nickName: string;
 
-  @Column()
-  avatar: string;
-
-  @Column()
-  hash: string;
-
-  @Column()
-  salt: string;
 
   @Column()
   createdAt: string;

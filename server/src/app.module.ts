@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MessageEntity } from './modules/chat/services/messages/entities/message.entity';
 import { UserEntity } from './modules/chat/services/users/entities/user.entity';
 import { ChatModule } from './modules/chat/chat.module';
 import { ToolsService } from './modules/chat/services/tools/tools.service';
+import { UserRoomEntity } from './modules/chat/services/users/entities/user-room.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -13,11 +16,17 @@ import { ToolsService } from './modules/chat/services/tools/tools.service';
     "username": "root",
     "password": "@.L0c4lS3rv3r",
     "database": "db_chat_project",
-    "entities": [UserEntity, MessageEntity],
+    "entities": [UserEntity, MessageEntity, UserRoomEntity],
     "synchronize": false,
     autoLoadEntities: true
     
-  }),ChatModule],
+  }),
+  ServeStaticModule.forRoot({
+     rootPath: join(__dirname, '..', 'dist/app'),
+     exclude: ['/api*'],
+   })
+  ,
+  ChatModule],
   providers: [ToolsService],
   
   

@@ -11,7 +11,7 @@ export class MessageEntity implements IMessage {
   id: string;
 
   @Column()
-  userName: string;
+  nickName: string;
 
   @Column()
   body: string;
