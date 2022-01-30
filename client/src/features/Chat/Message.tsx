@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Skeleton from "@mui/material/Skeleton";
+import { useSelector } from "react-redux";
 import { MessageEntity } from "../../entities/message.entity";
+import { RootState } from "../../store/store";
+import { selectCurrentUser } from "../User/userSlice";
+import { selectAvatarByUserName } from "./chatSlice";
 import TimeAgo from "./TimeAgo";
-import { createTheme } from "@mui/material/node_modules/@mui/system";
+
 
 
 export interface MessageProps {
@@ -22,34 +17,42 @@ function createHTML(media:string) {
   return { __html: media };
 }
 
-export default function Messages({isLoading, message}:MessageProps) {
+export default function ListMessages({isLoading, message}:MessageProps) {
+
+  const avatar = useSelector((state:RootState) => selectAvatarByUserName(state, message.nickName));
 
       let messageComponent;
-      if (message.userName=='room')
+      if (message.nickName=='room')
       {
         messageComponent =
         <li className="list-item-room">
           <span>
             {message.body}     
           </span>    <TimeAgo timestamp={message.createdAt}></TimeAgo>    
-          </li>        ;
+          </li>        
 
 
       }else
       {
 
         messageComponent =
-        <li className="list-item">
-       <span className="nickName">
-              {message.userName}  
-        </span>         
-        <TimeAgo timestamp={message.createdAt}></TimeAgo>     
-        {
+        <li className="flex py-4 first:pt-0 last:pb-0">
+
+      <img className="h-10 w-10 rounded-full" src={`assets/images/avatars/${avatar?avatar:'00.png'}`} alt="" />
+      <div className="ml-3 overflow-hidden">
+        <p className="text-sm font-medium text-slate-900">{message.nickName}</p>
+        
+        <div className="text-sm text-slate-500 truncate">     {
         message.body.indexOf('<img') || message.body.indexOf('<iframe')?
         <div dangerouslySetInnerHTML={createHTML(message.body)}/>
         :
         <div>{message.body}</div>
-        }     
+        }     </div>
+          
+      </div>
+      <TimeAgo timestamp={message.createdAt}></TimeAgo>
+
+  
           </li>;
 
       }

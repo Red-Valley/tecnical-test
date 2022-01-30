@@ -5,15 +5,15 @@ import {
   Action,
   combineReducers,
 } from "@reduxjs/toolkit";
+import userReducer from "../features/User/userSlice";
 import chatReducer from "../features/Chat/chatSlice";
 import textBoxMessageReducer from "../features/Chat/textBoxMessageSlice";
-import socketReducer from "../features/Socket/socketSlice";
 import socketMiddleware from "../middlewares/socketMiddleware";
 
 const rootReducer = combineReducers({
+  user: userReducer,  
   chat: chatReducer,  
   textBoxMessage: textBoxMessageReducer,
-  socket: socketReducer,
   
 });
 

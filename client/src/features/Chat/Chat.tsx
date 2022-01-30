@@ -1,31 +1,35 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Messages from "../../features/Chat/Messages";
+import ListMessages from "./ListMessages";
 import TextBoxMessage from "../../features/Chat/TextBoxMessage";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { RootState } from "../../store/store";
-import { connecting, disconnecting } from "../Socket/socketSlice";
-import { selectAllOrderedMessages, selectUserName } from "./chatSlice";
+import {  selectCurrentChatStatus, ChatStateStatuses } from "../Chat/chatSlice";
+import { selectAllOrderedMessages } from "./chatSlice";
+import { useEffect } from "react";
+
+
 
 function Chat() {
-  const messages = useAppSelector((state)=>selectAllOrderedMessages(state));
-  const userName = useAppSelector((state)=>selectUserName(state));
+  const messages = useAppSelector(selectAllOrderedMessages);
+  const chatStatus = useAppSelector(selectCurrentChatStatus);
+  
   const navigate = useNavigate();
   const dispatch = useAppDispatch();  
   
-  useEffect(() => {
-    dispatch(connecting(userName));
-  }, []);
-
-
+  console.log(chatStatus);
+  
   return (
     <div className="chatRoom">
       <div className="chatRoomContent">
-        <Messages messages={messages}></Messages>
+        { chatStatus==ChatStateStatuses.joined?
+        <ListMessages messages={messages}></ListMessages>  
+        :   <ListMessages messages={[]}></ListMessages>   
+        
+        }
       </div>
       <div className="chatRoomFooter">
-        <TextBoxMessage></TextBoxMessage>
+        {chatStatus==ChatStateStatuses.joined?<TextBoxMessage></TextBoxMessage>:"Not Connected!"
+        }
+        
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ function Layout() {
   return (
     <div className="layout">
       <Header />
-      <div className="main-content">
+      <div className="container  mx-auto px-4">
        <Outlet />
       </div>      
     </div>

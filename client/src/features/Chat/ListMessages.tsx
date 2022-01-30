@@ -16,24 +16,20 @@ export interface MessagesProps{
   messages:MessageEntity[]
 }
 
-export default function Messages({messages}:MessagesProps) {
+export default function ListMessages({messages}:MessagesProps) {
   const [isLoading, setIsLoading] = useState(false);
 
     let listMessages: any[] = [];
-
-    let messageSkeleton = (
-      <li className="list-item">
-      <div>
-      <Skeleton animation="wave" />     
-      </div>    
-      </li>
-    );
 
   if (messages.length==0)
   {
     
     for (let index = 0; index < 5; index++) {      
-      listMessages.push(messageSkeleton);
+      listMessages.push(  <li key={`c${index}`} className="list-item">
+      <div>
+      <Skeleton animation="wave" />     
+      </div>    
+      </li>);
     }
   }
     else
@@ -46,7 +42,7 @@ export default function Messages({messages}:MessagesProps) {
   
 
   return (
-    <ul className="list">
+    <ul role="list" className="p-6 divide-y divide-slate-200">
        { listMessages}                
   </ul>
   );

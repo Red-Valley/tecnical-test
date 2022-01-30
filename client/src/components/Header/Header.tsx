@@ -1,90 +1,51 @@
-import React, { MouseEvent } from 'react';
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { useAppDispatch } from "../../store/hooks";
-import {logout} from '../../features/Chat/chatSlice';
-import { useNavigate } from 'react-router-dom';
-
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { logout } from "../../features/User/userSlice";
+import { useNavigate } from "react-router-dom";
+import { selectCurrentUser } from "../../features/User/userSlice";
+import { selectCurrentTotalUsers } from "../../features/Chat/chatSlice";
 
 const Header = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();  
+  const dispatch = useAppDispatch();
 
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-   
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  let user =useAppSelector(selectCurrentUser); 
+  let totalUsers =useAppSelector(selectCurrentTotalUsers); 
 
   const handleLogout = () => {
     dispatch(logout(null));
     navigate("/");
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
 
   return (
-    <AppBar position="fixed">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+    <header className="header py-2 bg-sky-500 ">
+      <nav className="flex justify-between text-white space-x-4">
+        <div>
+          <h4 className="pl-1">Geek Chat!</h4>
+        </div>
+        <div>
+          <div className="flex items-center space-x-2 text-base">
+            <h4 className="font-semibold text-slate-900">Users Connected</h4>
+            <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
+              {totalUsers}
+            </span>
+          </div>
+        </div>
+        <div>
+          <span className="font-bold p-2 text-white" >{user?.nickName}</span>
+          { user?
+          <a
+            href="/"
+            onClick={handleLogout}
+            className="cursor-pointer hover:text-black px-4"
           >
-            CHAT
-          </Typography> 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            CHAT
-          </Typography>
-    
-          <Box sx={{ flexGrow: 1 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            Logout
+          </a>:''
+          }
+        </div>
+      </nav>
+    </header>
   );
 };
 export default Header;
-
-

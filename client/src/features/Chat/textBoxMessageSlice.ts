@@ -42,7 +42,7 @@ export default function textBoxMessageReducer(state = initialState, action:any) 
 export function buildMessage(text:any) {
   return async function buildMessageThunk(dispatch:any, getState:any) {
     const state = getState();
-    let message:MessageEntity = {id:null,body:text, userName:state.chat.userName, createdAt:new Date().toJSON()} ;
+    let message:MessageEntity = {id:null,body:text, nickName:state.chat.nickName, createdAt:new Date().toJSON()} ;
    if (REGEX_GIPHY.test(message.body)) {
      let matchs = message.body.match(REGEX_GIPHY);
      if (matchs) {

@@ -57,9 +57,9 @@ export default class SocketInterface {
       this.onChange(false);
   };
 
-  public joinedRoom = (userName:string) => {
+  public joinedRoom = (nickName:string) => {
     if (typeof this.socket.emit === "function") {
-      this.socket.emit(EVENTS.JOINED_ROOM, userName, this.onJoinedRoom);
+      this.socket.emit(EVENTS.JOINED_ROOM, nickName, this.onJoinedRoom);
 
     } else {
       console.error(`Cannot emit socket event:${EVENTS.MESSAGE_SENT}. Socket.io not connected.`);
@@ -74,7 +74,7 @@ export default class SocketInterface {
     }
   };
 
-  public disconnect = (userName:string) =>{ 
+  public disconnect = (nickName:string) =>{ 
   
     if (typeof this.socket.emit === "function") {
         this.socket.close(this.onDisconnected);

@@ -2,8 +2,9 @@
 export interface UserEntity {
   
    id: string,
-   userName: string,
-  hash: string,
- createdAt: string
+   nickName: string,
+  hash?: string,
+  avatar: string,
+ createdAt?: string
 
 }
