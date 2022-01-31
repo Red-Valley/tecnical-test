@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+<<<<<<< HEAD
 import { logout } from "../../features/Chat/userSlice";
+=======
+>>>>>>> dev
 import { useNavigate } from "react-router-dom";
 import { selectCurrentUser } from "../../features/Chat/userSlice";
 import { disconnecting, fetchConnectedUsers, selectCurrentTotalUsers } from "../../features/Chat/chatSlice";
@@ -13,9 +16,14 @@ const Header = () => {
   let totalUsers =useAppSelector(selectCurrentTotalUsers); 
 
    useEffect(() => {
+<<<<<<< HEAD
    // setInterval(() => {
     dispatch<any>(fetchConnectedUsers());
    //}, 30000)    
+=======
+     dispatch<any>(fetchConnectedUsers());
+  
+>>>>>>> dev
    }, []);
 
   

@@ -3,8 +3,8 @@ import { MessageEntity } from "../../entities/message.entity";
 import { UserEntity } from "../../entities/user.entity";
 import { RootState } from "../../store/store";
 import axios from "axios";
+import { API_URL } from "../Home/loginSlice";
 
-const API_URL = "http://localhost/api";
 
 const newMessageSound=()=>{
   let url = "assets/sounds/beep_sms.mp3";

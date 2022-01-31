@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 import axios from "axios";
+import { API_URL } from "./loginSlice";
 
-const API_URL = "http://localhost/api";
 
 export enum SignInStateStatuses {
   idle,
