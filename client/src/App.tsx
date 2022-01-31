@@ -4,10 +4,6 @@ import { store } from "./store/store";
 
 import Layout from "./components/Layout";
 import Home from "./pages/Home/Home";
-<<<<<<< HEAD
-import Login from "./features/Home/Login";
-=======
->>>>>>> dev
 import ChatRoom from "./pages/ChatRoom/ChatRoom";
 
 import "./App.css";
