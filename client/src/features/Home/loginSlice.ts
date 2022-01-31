@@ -3,7 +3,7 @@ import { RootState } from "../../store/store";
 import axios from "axios";
 import { logged, loading } from "../Chat/userSlice";
 
-const API_URL = "http://localhost/api";
+export const API_URL = "http://167.71.188.153/api";
 
 export enum LoginStateStatuses {
   idle,

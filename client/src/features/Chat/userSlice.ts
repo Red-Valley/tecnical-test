@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { UserEntity } from "../../entities/user.entity";
 import { RootState } from "../../store/store";
-import axios from "axios";
 
-const API_URL = "http://localhost/api";
 
 export enum UserStateStatuses {
   idle, 

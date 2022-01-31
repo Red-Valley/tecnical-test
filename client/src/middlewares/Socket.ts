@@ -45,9 +45,12 @@ export default class SocketInterface {
   public connect = (user: string, port: string) => {
     this.user = user;
     this.port = port;
-    const host = `http://localhost:${port}`; 
-     this.socket = io.connect(host);
-    //this.socket = io.connect(); 
+
+    //Prod
+    const host= `http://167.71.188.153:${port}`; 
+
+    this.socket = io.connect(host);
+    
     this.socket.on(EVENTS.CONNECT, this.onConnected);
   };
   

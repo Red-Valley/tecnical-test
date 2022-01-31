@@ -5,9 +5,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 
-import axios from "axios";
-import { Action } from "history";
-
 
 export const REGEX_GIPHY: RegExp = /(?:\/giphy)/g;
 
