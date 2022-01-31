@@ -8,11 +8,7 @@ import {
   selectGiphySearchStatus,
 } from "./giphySearchSlice";
 import CarouselGifs from "./CarouselGifs";
-<<<<<<< HEAD
-import useDebounce from "../../hooks/useDebounce";
-=======
->>>>>>> dev
-import { loading } from "./userSlice";
+
 
 interface GiphySearchProps {
   onSelected: Function;
