@@ -6,6 +6,11 @@ import axios from "axios";
 
 const API_URL = "http://localhost/api";
 
+const newMessageSound=()=>{
+  let url = "assets/sounds/beep_sms.mp3";
+  let audio = new Audio(url);       
+  audio.play();
+}
 
 export enum ChatStateStatuses{
       idle,
@@ -77,7 +82,14 @@ const chatSlice = createSlice({
       }            
     },
     messageReceived: (state, action) => {
-      state.messages = state.messages.concat(action.payload);
+      let found = state.messages.find(x=>x.id==action.payload.id);
+      if(!found)
+      {
+      state.messages = state.messages.concat(action.payload).slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt)).reverse();
+     
+      newMessageSound();
+
+      }
     }, 
     disconnected: (state, action) => {
       state.status = ChatStateStatuses.disconnected;

@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { tryLogin, logged, selectUserStatus, UserStateStatuses, selectCurrentUser } from "../User/userSlice";
+import { tryLogin, selectLoginStatus, LoginStateStatuses } from "../Home/loginSlice";
 
 
 function Login() {
@@ -9,19 +9,20 @@ function Login() {
   const dispatch = useAppDispatch();  
   const navigate = useNavigate();
 
-  const userStatus = useAppSelector(selectUserStatus);
+  const loginStatus = useAppSelector(selectLoginStatus);
   const [nickName, setNickName] = useState("");
   const [hash, setHash] = useState("");
-  const [loginRequestStatus, setLoginRequestStatus] = useState('idle')
+  const [loginRequestStatus, setLoginRequestStatus] = useState(LoginStateStatuses.idle)
   
 
   useEffect(() => {
-    console.log(userStatus);
-    if(userStatus==UserStateStatuses.online)
+    console.log(loginStatus);
+    if(loginStatus==LoginStateStatuses.success)
     {           
       navigate("/chatRoom");
     }
-  }, [userStatus]);
+   
+  }, [loginStatus]);
 
 
 
@@ -38,19 +39,20 @@ function Login() {
 
   
   const canLogin =
-    [nickName, hash].every(Boolean) && loginRequestStatus === 'idle'
+    [nickName, hash].every(Boolean) && loginRequestStatus === LoginStateStatuses.idle
 
   const handleLogin = async () => {
     if (canLogin) {
       try {
-        setLoginRequestStatus('pending');
-        dispatch(tryLogin({ nickName:nickName, hash:hash}));
+        setLoginRequestStatus(LoginStateStatuses.loading);
+        dispatch<any>(tryLogin({ nickName:nickName, hash:hash}));
         setNickName('')
         setHash('')                    
       } catch (err) {
         console.error('Failed to login: ', err)
+        setLoginRequestStatus(LoginStateStatuses.failed);
       } finally {
-        setLoginRequestStatus('idle')
+        setLoginRequestStatus(LoginStateStatuses.idle);
       }
     }
   }
@@ -96,8 +98,9 @@ function Login() {
         </div>
         <div className="basis-1/4">
           <button
-            className="basis-1/4 bg-blue-500 hover:bg-blue-600 font-semibold text-white  py-2 px-4 mt-5 border border-blue-500 hover:border-transparent rounded"
+            className="bg-blue-500 disabled:cursor-not-allowed disabled:opacity-75 hover:bg-blue-600 font-semibold text-white  py-2 px-4 mt-5 border border-blue-500 hover:border-transparent rounded"
             onClick={handleLogin}
+            disabled={!canLogin}
           >
             Enter
           </button>

@@ -16,16 +16,17 @@ function Chat() {
   const dispatch = useAppDispatch();  
   
   
+
   return (
-    <div className="chatRoom">
-      <div className="chatRoomContent">
+    <div className="chatRoom flex-row">
+      <div className="chatRoomContent overflow-auto">
         { chatStatus==ChatStateStatuses.joined?
         <ListMessages messages={messages}></ListMessages>  
         :   <ListMessages messages={[]}></ListMessages>   
         
         }
       </div>
-      <div className="chatRoomFooter">
+      <div className="chatRoomFooter sticky bottom-0 border-t-2 bg-white">
         {chatStatus==ChatStateStatuses.joined?<TextBoxMessage></TextBoxMessage>:"Not Connected!"
         }
         

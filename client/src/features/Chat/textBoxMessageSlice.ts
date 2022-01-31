@@ -1,62 +1,60 @@
-import { GiphyFetch } from "@giphy/js-fetch-api";
+import { createSlice } from "@reduxjs/toolkit";
 import { MessageEntity } from "../../entities/message.entity";
+import { RootState } from "../../store/store";
 
-export const REGEX_YOUTUBE: RegExp = /(?:\/youtube \w+\/\w+)/g;
-export const REGEX_GIPHY: RegExp = /(?:\/giphy)/g;
+
+
+export enum TextBoxStateStatuses{
+idde,
+loading,
+sending,
+error,
+failed,
+}
 
 export interface TextBoxState {
   message: string;
-  status: "idle" | "sending" | "error";
+  status: TextBoxStateStatuses;
   error: null;
 }
-const initialState = {
+const initialState:TextBoxState = {
   message: "",
-  status: "idle",
+  status: TextBoxStateStatuses.idde,
   error: null,
 };
 
-// const textBoxMessageSlice = createSlice({
-//   name: "textBoxMessage",
-//   initialState,
-//   reducers: {
-//     sendMessage: (state, action) => {},
-//     messageSent: (state, action) => {},
-//   },
-// });
+const textBoxMessageSlice = createSlice({
+  name: "textBoxMessage",  
+  initialState,
+  reducers: {     
+    messageSent(state, payload){
+      state.status = TextBoxStateStatuses.idde;
+    },
+    sendMessage(state, payload){
+      state.status = TextBoxStateStatuses.loading;
+    },
+    textBoxLoading(state, payload)
+    {
+      state.status = TextBoxStateStatuses.loading;
+    }
 
-export default function textBoxMessageReducer(state = initialState, action:any) {
-    switch (action.type) {
-
-     case 'textBoxMessage/messageSent': {
-      
-      return action.payload;    }
-
-      case 'textBoxMessage/sendMessage': {
-        return action.payload;    }
-  
-    default:
-      return state
   }
-}
+});
+
 
 export function buildMessage(text:any) {
   return async function buildMessageThunk(dispatch:any, getState:any) {
     const state = getState().user;
     let message:MessageEntity = {id:null,body:text, nickName:state.currentUser.nickName, createdAt:new Date().toJSON()} ;
-   if (REGEX_GIPHY.test(message.body)) {
-     let matchs = message.body.match(REGEX_GIPHY);
-     if (matchs) {
-       const giphyFetch = new GiphyFetch("sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh");
-       const response = await giphyFetch.random();
-       console.log(response);
-       let gif = `<img src="${response.data.images.fixed_height.url}" />`;
-       message.body = message.body.replace(matchs[0], gif);
-     }
-   }  
-    dispatch({ type: 'textBoxMessage/sendMessage', payload: message })
+    dispatch(sendMessage(message))
   }
 }
 
-  
+
+export const {sendMessage, messageSent, textBoxLoading} = textBoxMessageSlice.actions;
+
+export const selectTextBoxMessageStatus = (state: RootState) => state.textBoxMessage.status;
+
+export default textBoxMessageSlice.reducer;
 
 

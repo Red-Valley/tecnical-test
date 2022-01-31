@@ -10,7 +10,9 @@ import {
 } from "../features/Chat/chatSlice";
 import { MessageEntity } from "../entities/message.entity";
 import SocketInterface from "./Socket";
-import { logout } from "../features/User/userSlice";
+import { logout } from "../features/Chat/userSlice";
+import { loginInit } from "../features/Home/loginSlice";
+import { messageSent } from "../features/Chat/textBoxMessageSlice";
 
 const socketMiddleware = (store: any) => {
   const onConnectionChange = (isConnected: boolean) => {
@@ -69,9 +71,11 @@ const socketMiddleware = (store: any) => {
         case "chat/disconnecting":
           store.dispatch(userLeft(userState.currentUser.nickName));
           store.dispatch(logout(true));  
+          store.dispatch(loginInit(true));
           break;
         case "textBoxMessage/sendMessage":
           socket.messageSent(action.payload);
+          store.dispatch(messageSent(action.payload));
           break;
       }
     }

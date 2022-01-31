@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
+import React, { useEffect, useState } from "react";
 import Message from "./Message";
 import { MessageEntity } from "../../entities/message.entity";
 import { Skeleton } from "@mui/material";
+var Scroll = require('react-scroll');
+var scroll = Scroll.animateScroll;
 
 
 
@@ -16,10 +11,19 @@ export interface MessagesProps{
   messages:MessageEntity[]
 }
 
+
 export default function ListMessages({messages}:MessagesProps) {
   const [isLoading, setIsLoading] = useState(false);
 
     let listMessages: any[] = [];
+
+    
+
+
+    useEffect(()=>{
+      scroll.scrollToBottom();
+    },[messages])
+
 
   if (messages.length==0)
   {

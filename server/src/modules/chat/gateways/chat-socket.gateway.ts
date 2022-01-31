@@ -25,6 +25,10 @@ export class ChatSocketGateway {
     private messagesService: MessagesService,
   ) {}
 
+
+
+
+
   @SubscribeMessage('joinedRoom')
   async handleJoinRoom(client: any, nickName: string): Promise<any> {
     let user = await this.usersService.getUserByNickName(nickName).then();
@@ -32,24 +36,28 @@ export class ChatSocketGateway {
       let messages = await this.messagesService.getLastMessages(500).then();
       let users = await this.usersService.getUsersInRoom().then();
       if (users.indexOf((x) => x.nickName == nickName) == -1) {
-        let addToRoom = await this.usersService.JoinRoom({
+         await this.usersService.JoinRoom({
           nickName: user.nickName,
         });
       }
 
       let newId = await this.toolsService.createUUID().then();
-      let newUserEntered: MessageEntity = {
+      let userJoined: MessageEntity = {
         id: newId,
         body: `${nickName} has entered to this room.`,
         nickName: 'room',
         createdAt: new Date(),
       };
-      
+      await this.messagesService.createMessage(userJoined).then();        
       this.server.emit('userJoined', {
         nickName: user.nickName,
         avatar: user.avatar,
       });
-      this.server.emit('messages', newUserEntered);
+        setTimeout(()=>{
+          this.server.emit('messages', userJoined);
+        },3000);  
+      
+      
       return messages;
     }
     return [];
@@ -71,16 +79,22 @@ export class ChatSocketGateway {
   @SubscribeMessage('leftRoom')
   async handleLeftRoom(client: any, nickName: string) {
     let res = await this.usersService.deleteUserOfRoom(nickName).then();
+
     if (res) {
-      let newId = await this.toolsService.createUUID().then();
+      let newId = await this.toolsService.createUUID().then();    
       let userLeft: MessageEntity = {
         id: newId,
         body: `${nickName} has left to this room.`,
         nickName: 'room',
         createdAt: new Date(),
-      };
-      this.server.emit('userLeft', nickName);
-      this.server.emit('messages', userLeft);
+      };      
+      await this.messagesService.createMessage(userLeft).then();     
+      this.server.emit('messages', userLeft);      
+      setTimeout(()=>{
+        this.server.emit('userLeft', nickName);  
+      },3000);  
+      
+      
       return;
     }
   }

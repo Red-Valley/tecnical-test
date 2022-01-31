@@ -8,7 +8,11 @@ import {
 
 const AVATARS = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
 
-function SignIn() {
+interface SignInProps{
+  onBack:Function
+}
+
+function SignIn({onBack}:SignInProps) {
   const [nickName, setNickName] = useState("");
   const [hash, setHash] = useState("");
   const [avatar, setAvatar] = useState(AVATARS[0]);
@@ -23,7 +27,7 @@ function SignIn() {
     console.log(event.target.value);
     if (event.target.value.length > 7) {
       try {
-        dispatch(isNickNameAvailable(event.target.value));
+        dispatch<any>(isNickNameAvailable(event.target.value));
       } catch (error) {}
     }
   };
@@ -43,7 +47,7 @@ function SignIn() {
     if (canSave) {
       try {
         setSignInRequestStatus("pending");
-        dispatch(signIn({ nickName: nickName, hash: hash, avatar: avatar }));
+        dispatch<any>(signIn({ nickName: nickName, hash: hash, avatar: avatar }));
         setNickName("");
         setAvatar(AVATARS[0]);
         setHash("");
@@ -56,7 +60,7 @@ function SignIn() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-row">
       <div className="flex flex-col basis-1/2 justify-center">
         <span className="text-2xl mb-4">
           Register in Geek Chat is very simple!
@@ -64,8 +68,17 @@ function SignIn() {
         <div className="w-auto flex flex-col">
           <span className="w-auto">1. Select a avatar.</span>
           <span className="w-auto">2. Try a good nickname to join.</span>
-          <span className="w-auto">3. Click on the enter button.</span>
+          <span className="w-auto">3. Click on register button.</span>
         </div>
+        <div className="mt-4">
+            Have you remembered your nickname and password?
+            <a
+              className="rounded-full cursor-pointer text-white bg-violet-500 ml-2 mt-8 p-2 hover:bg-violet-700"
+              onClick={()=>onBack()}
+            >
+              Login here!
+            </a>
+          </div>
       </div>
 
       <div className="flex flex-col">
