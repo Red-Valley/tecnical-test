@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Login from "../../features/User/Login";
-import SignIn from "../../features/User/SignIn";
+import GiphySearch from "../../features/Chat/GiphySearch";
+import Login from "../../features/Home/Login";
+import SignIn from "../../features/Home/SignIn";
 
 function Home() {
   const [currentTab, setCurrentTab] = useState("Login");
@@ -26,19 +27,11 @@ function Home() {
           </div>
         </>
       ) : (
-        <>
-          <SignIn></SignIn>
-          <div className="mt-4">
-            Have you remembered your nickname and password?
-            <a
-              className="rounded-full cursor-pointer text-white bg-violet-500 ml-2 mt-8 p-2 hover:bg-violet-700"
-              onClick={() => setCurrentTab("Login")}
-            >
-              Login here!
-            </a>
-          </div>
-        </>
-      )}
+     
+          <SignIn onBack={() => setCurrentTab("Login")} ></SignIn>
+    
+     
+      )}  
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { MessageEntity } from "../../entities/message.entity";
 import { RootState } from "../../store/store";
-import { selectCurrentUser } from "../User/userSlice";
+import { selectCurrentUser } from "./userSlice";
 import { selectAvatarByUserName } from "./chatSlice";
 import TimeAgo from "./TimeAgo";
 
@@ -42,11 +42,10 @@ export default function ListMessages({isLoading, message}:MessageProps) {
       <div className="ml-3 overflow-hidden">
         <p className="text-sm font-medium text-slate-900">{message.nickName}</p>
         
-        <div className="text-sm text-slate-500 truncate">     {
+        <div className="text-sm message text-slate-500 truncate">     {
         message.body.indexOf('<img') || message.body.indexOf('<iframe')?
         <div dangerouslySetInnerHTML={createHTML(message.body)}/>
-        :
-        <div>{message.body}</div>
+        : message.body
         }     </div>
           
       </div>

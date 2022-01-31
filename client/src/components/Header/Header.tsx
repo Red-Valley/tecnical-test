@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { logout } from "../../features/User/userSlice";
+import { logout } from "../../features/Chat/userSlice";
 import { useNavigate } from "react-router-dom";
-import { selectCurrentUser } from "../../features/User/userSlice";
+import { selectCurrentUser } from "../../features/Chat/userSlice";
 import { disconnecting, fetchConnectedUsers, selectCurrentTotalUsers } from "../../features/Chat/chatSlice";
 
 const Header = () => {
@@ -12,13 +12,11 @@ const Header = () => {
   let user =useAppSelector(selectCurrentUser); 
   let totalUsers =useAppSelector(selectCurrentTotalUsers); 
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     //dispatch(fetchConnectedUsers());
-  // }, 3000)
-    
-
-  // }, []);
+   useEffect(() => {
+   // setInterval(() => {
+    dispatch<any>(fetchConnectedUsers());
+   //}, 30000)    
+   }, []);
 
   
 
@@ -29,7 +27,7 @@ const Header = () => {
 
 
   return (
-    <header className="header py-2 bg-sky-500 ">
+    <header className="header sticky top-0 py-2 bg-sky-500 ">
       <nav className="flex justify-between text-white space-x-4">
         <div>
           <h4 className="pl-1">Geek Chat!</h4>

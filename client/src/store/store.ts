@@ -5,17 +5,22 @@ import {
   Action,
   combineReducers,
 } from "@reduxjs/toolkit";
-import userReducer from "../features/User/userSlice";
-import signInReducer from "../features/User/signInSlice";
+
+import loginReducer from "../features/Home/loginSlice";
+import signInReducer from "../features/Home/signInSlice";
+import userReducer from "../features/Chat/userSlice";
 import chatReducer from "../features/Chat/chatSlice";
 import textBoxMessageReducer from "../features/Chat/textBoxMessageSlice";
 import socketMiddleware from "../middlewares/socketMiddleware";
+import giphySearchSlice from "../features/Chat/giphySearchSlice";
 
 const rootReducer = combineReducers({
+  login:loginReducer,
   sigIn: signInReducer,  
   user: userReducer,  
   chat: chatReducer,  
   textBoxMessage: textBoxMessageReducer,
+  giphySearch: giphySearchSlice,
   
 });
 
