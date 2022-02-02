@@ -33,4 +33,7 @@
 ## To apply for the job you must ...
     - Fork this repository. 
     - Make a PR with the code and the url to your application
+    
+## Deploy Link
+    https://qickly-chat.vercel.app/
 
