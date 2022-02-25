@@ -1,3 +1,4 @@
 export declare class UnFollowUserDto {
-    readonly followerId: string;
+    readonly userToUnFollowId: string;
+    readonly userId: string;
 }

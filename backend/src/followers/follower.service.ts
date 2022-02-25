@@ -4,6 +4,7 @@ import { FollowUserDto } from './dto/follow-user.dto';
 import { Model } from 'mongoose';
 import { Follower } from './interfaces/follower.interface';
 import { UnFollowUserDto } from './dto/unfollow-user.dto';
+import { User } from 'src/users/interfaces/user.interface';
 
 @Injectable()
 export class FollowerService {
@@ -22,7 +23,11 @@ export class FollowerService {
 
   public async unFollowUser(unFollowUserDto: UnFollowUserDto): Promise<void> {
     await this.followModel.findOneAndDelete({
-      userFollowerId: unFollowUserDto.followerId,
+      userFollowerId: unFollowUserDto.userToUnFollowId,
     });
+  }
+
+  public async getFollowersByUserId(userId: string): Promise<User[]> {
+    return await this.followModel.find({ userId })
   }
 }

@@ -26,7 +26,7 @@ let UserService = class UserService {
         return await user.save();
     }
     async getAllUsers() {
-        return await this.userModel.find({}, {}, { skip: 10 });
+        return await this.userModel.find();
     }
     async isIdNumberUnique(idNumber) {
         const user = await this.userModel.findOne({ idNumber, verified: true });

@@ -30,8 +30,11 @@ let FollowerService = class FollowerService {
     }
     async unFollowUser(unFollowUserDto) {
         await this.followModel.findOneAndDelete({
-            userFollowerId: unFollowUserDto.followerId,
+            userFollowerId: unFollowUserDto.userToUnFollowId,
         });
+    }
+    async getFollowersByUserId(userId) {
+        return await this.followModel.find({ userId });
     }
 };
 FollowerService = __decorate([

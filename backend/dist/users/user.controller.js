@@ -22,6 +22,7 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async register(registerUserDto) {
+        console.log("🚀 ~ file: user.controller.ts ~ line 32 ~ UserController ~ registerUserDto", registerUserDto);
         return await this.userService.registerUser(registerUserDto);
     }
     async getAllUsers() {

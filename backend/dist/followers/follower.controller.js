@@ -28,6 +28,9 @@ let FollowersController = class FollowersController {
     async unFollowUer(unFollowUserDto) {
         return await this.followerService.unFollowUser(unFollowUserDto);
     }
+    async getFollowersByUserId(id) {
+        return await this.followerService.getFollowersByUserId(id);
+    }
 };
 __decorate([
     (0, common_1.Post)('follow'),
@@ -49,6 +52,16 @@ __decorate([
     __metadata("design:paramtypes", [unfollow_user_dto_1.UnFollowUserDto]),
     __metadata("design:returntype", Promise)
 ], FollowersController.prototype, "unFollowUer", null);
+__decorate([
+    (0, common_1.Get)(":id"),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ description: 'Get followers' }),
+    (0, swagger_1.ApiCreatedResponse)({}),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FollowersController.prototype, "getFollowersByUserId", null);
 FollowersController = __decorate([
     (0, common_1.Controller)('followers'),
     __metadata("design:paramtypes", [follower_service_1.FollowerService])

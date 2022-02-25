@@ -19,7 +19,7 @@ export class UserService {
   }
 
   public async getAllUsers(): Promise<User[]> {
-    return await this.userModel.find({}, {}, { skip: 10 });
+    return await this.userModel.find();
   }
 
   /**

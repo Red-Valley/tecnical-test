@@ -1,5 +1,6 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
+import { User } from 'src/users/interfaces/user.interface';
 import { FollowUserDto } from './dto/follow-user.dto';
 import { UnFollowUserDto } from './dto/unfollow-user.dto';
 import { FollowerService } from './follower.service';
@@ -22,5 +23,13 @@ export class FollowersController {
   @ApiCreatedResponse({})
   public async unFollowUer(@Body() unFollowUserDto: UnFollowUserDto) {
     return await this.followerService.unFollowUser(unFollowUserDto);
+  }
+
+  @Get(":id")
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ description: 'Get followers' })
+  @ApiCreatedResponse({})
+  public async getFollowersByUserId(@Param('id') id: string): Promise<User[]> {
+    return await this.followerService.getFollowersByUserId(id);
   }
 }

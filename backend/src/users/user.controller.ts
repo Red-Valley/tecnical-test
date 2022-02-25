@@ -29,6 +29,7 @@ export class UserController {
   public async register(
     @Body() registerUserDto: RegisterUserDto,
   ): Promise<User> {
+    console.log("🚀 ~ file: user.controller.ts ~ line 32 ~ UserController ~ registerUserDto", registerUserDto)
     return await this.userService.registerUser(registerUserDto);
   }
 
