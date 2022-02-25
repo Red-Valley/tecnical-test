@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { Register } from "./routes/Register";
 import { Dashboard } from "./routes/Dashboard";
 import { AuthContextProvider } from "./context/stores/Auth/AuthContext";
 ReactDOM.render(
   <AuthContextProvider>
-    <HashRouter>
+    <BrowserRouter>
       <React.StrictMode>
         {/* <App /> */}
         <Routes>
@@ -19,7 +19,7 @@ ReactDOM.render(
           {/* </Route> */}
         </Routes>
       </React.StrictMode>
-    </HashRouter>
+    </BrowserRouter>
   </AuthContextProvider>,
 
   document.getElementById("root")
