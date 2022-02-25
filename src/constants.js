@@ -1,1 +1,1 @@
-export const API_URL = 'https://8ac6-2800-e2-5880-c00-cbc-86fd-a7f8-ee9f.ngrok.io'
+export const API_URL = "https://tecnicaltest.herokuapp.com/";
