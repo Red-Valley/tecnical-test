@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  expressjs:
+    container_name: rv-backend
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    # FIXME: backend container ports should be exposed through nginx
+    ports:
+      - 8000:8000
+  mongodb:
+    image: mongo
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    env_file:
+      - ./backend/.env
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    env_file:
+      - ./backend/.env
