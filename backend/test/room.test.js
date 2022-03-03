@@ -1,38 +1,43 @@
-const { createRoomService, listRoomsService, getRoomService } = require("../src/services/room/roomService");
+const {
+  createRoomService,
+  listRoomsService,
+  getRoomService,
+} = require("../src/services/room/roomService");
 const assert = require("assert");
 
-describe("Room & Messages", function () {
+describe("Room suite", function () {
   before(function () {
-    const connection = require("../src/loaders/database")();
-    connection.dropDatabase();
+    require("../src/loaders/database")();
   });
 
   let room;
-  describe("* Room Suite", function () {
-    it("# should create a room", async function () {
-      const roomPayload = {
-        room_name: "mock room",
-      };
+  it("# should create a room", async function () {
+    const roomPayload = {
+      room_name: "mock room",
+    };
 
-      const { result } = await createRoomService(roomPayload);
-      room = result.id;
-      assert.notEqual(result.id, undefined, "unable to create room");
-    });
+    const { result } = await createRoomService(roomPayload);
+    room = result.id;
+    assert.notEqual(result.id, undefined, "unable to create room");
+  });
 
-    it("# retrieve the second created room", async function () {
-      const roomPayload = {
-        room_name: "mock room 2",
-      };
+  it("# retrieve the second created room", async function () {
+    const roomPayload = {
+      room_name: "mock room 2",
+    };
 
-      await createRoomService(roomPayload);
+    await createRoomService(roomPayload);
 
-      const { result } = await listRoomsService({ page: 1, limit: 1 });
-      assert.equal(result.length, 1, "empty list of rooms");
-    });
+    const { result } = await listRoomsService({ page: 1, limit: 1 });
+    assert.equal(result.length, 1, "empty list of rooms");
+  });
 
-    it("# retrieve the first created room", async function () {
-      const { result } = await getRoomService({ id: room });
-      assert.notEqual(result.id, undefined, `the room with id ${room} does not exist`);
-    });
+  it("# retrieve the first created room", async function () {
+    const { result } = await getRoomService({ id: room });
+    assert.notEqual(
+      result.id,
+      undefined,
+      `the room with id ${room} does not exist`
+    );
   });
 });

@@ -1,4 +1,4 @@
-const chatRoomSchema = require("../../models/room");
+const roomSchema = require("../../models/room");
 const { ServiceResultHandling } = require("../../utils/helper");
 const { STATUS_CODE } = require("../../utils/constants");
 
@@ -8,7 +8,7 @@ const createRoomService = async ({ room_name, user_id }) => {
       created_by: user_id,
       room_name: room_name,
     };
-    const room = await chatRoomSchema.create({ ...payload });
+    const room = await roomSchema.create({ ...payload });
     return {
       statusCode: STATUS_CODE.CREATED,
       result: {
@@ -27,7 +27,7 @@ const createRoomService = async ({ room_name, user_id }) => {
 
 const getRoomService = async ({ id }) => {
   try {
-    const room = await chatRoomSchema.findById(id, {
+    const room = await roomSchema.findById(id, {
       cby: true,
       rn: true,
       _id: true,
@@ -47,7 +47,7 @@ const getRoomService = async ({ id }) => {
 
 const listRoomsService = async ({ page = 0, limit = 10 }) => {
   try {
-    const rooms = await chatRoomSchema.find(
+    const rooms = await roomSchema.find(
       {},
       {
         cby: true,

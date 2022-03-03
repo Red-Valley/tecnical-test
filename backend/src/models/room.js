@@ -24,26 +24,7 @@ const RoomSchema = new Schema(
           alias: "enrolled_at",
         },
       },
-    ],
-    // messages in this room
-    messages: [
-      {
-        uid: { type: mongoose.Schema.Types.ObjectId, alias: "user_id" },
-        cmd: { type: Boolean, alias: "command", default: false },
-        c: {
-          type: String,
-          alias: "content",
-          required: "This field is required!",
-          minlength: 1,
-          maxlength: 250,
-        },
-        cat: {
-          type: Date,
-          default: Date.now,
-          alias: "created_at",
-        },
-      },
-    ],
+    ]
   },
   {
     timestamps: true,
