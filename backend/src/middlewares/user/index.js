@@ -1,4 +1,5 @@
 const { authenticateSchema, createUserSchema } = require("./schema");
+const { STATUS_CODE } = require("../../utils/constants");
 const { HttpResponseHandling } = require("../../utils/helper");
 
 const checkAuthenticationFields = async (req, res, next) => {
@@ -10,7 +11,7 @@ const checkAuthenticationFields = async (req, res, next) => {
     });
     next();
   } catch (error) {
-    return HttpResponseHandling.handleBadRequest(res, error.message);
+    return HttpResponseHandling[STATUS_CODE.BAD_REQUEST](res, error.message);
   }
 };
 
@@ -24,7 +25,7 @@ const checkUserFields = async (req, res, next) => {
     });
     next();
   } catch (error) {
-    return HttpResponseHandling.handleBadRequest(res, error.message);
+    return HttpResponseHandling[STATUS_CODE.BAD_REQUEST](res, error.message);
   }
 };
 

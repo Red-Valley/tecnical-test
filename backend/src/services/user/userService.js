@@ -56,7 +56,7 @@ const authenticateService = async ({ username, password }) => {
     }
     return {
       error: true,
-      result: ServiceResultHandling.handleError("unexpected error"),
+      result: ServiceResultHandling.handleError("invalid credentials"),
       statusCode: STATUS_CODE.BAD_REQUEST,
     };
   } catch (err) {
