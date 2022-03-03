@@ -47,7 +47,7 @@ const sendMessageService = async ({
     });
     return {
       statusCode: STATUS_CODE.OK,
-      result: { id: message.id },
+      result: { id: message.id, createdAt: message.createdAt },
     };
   } catch (error) {
     return {
