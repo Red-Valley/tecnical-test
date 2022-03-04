@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const MessagesSchema = new Schema(
   {
-    uid: { type: mongoose.Schema.Types.ObjectId, alias: "user_id" },
+    uid: { type: mongoose.Schema.Types.ObjectId, alias: "user", ref: 'User', required: true },
     cmd: { type: Boolean, alias: "command", default: false },
     c: {
       type: String,

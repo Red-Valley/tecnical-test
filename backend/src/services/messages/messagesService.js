@@ -18,7 +18,7 @@ const listMessageService = async ({ page = 0, limit = 15 } = {}) => {
         limit,
         sort: { createdAt: "desc" },
       }
-    );
+    ).populate("uid", { _id: true, u: true, ph: true });
     return {
       statusCode: STATUS_CODE.OK,
       result: messages,
@@ -34,7 +34,7 @@ const listMessageService = async ({ page = 0, limit = 15 } = {}) => {
 
 const sendMessageService = async ({ user_id, content, command = false }) => {
   try {
-    const payload = { user_id, content, command };
+    const payload = { user: user_id, content, command };
     const message = await messagesSchema.create({
       ...payload,
     });

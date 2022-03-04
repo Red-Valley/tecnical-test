@@ -5,8 +5,12 @@ const {
 const assert = require("assert");
 
 describe("User suite", function () {
+  let connection;
   before(function () {
-    const connection = require("../src/loaders/database")();
+    connection = require("../src/loaders/database")();
+  });
+
+  after(function () {
     connection.dropDatabase();
   });
 
@@ -40,7 +44,6 @@ describe("User suite", function () {
       password: "test12345",
       name: "mock user",
     };
-    // FIXME: this test is failing
     const { error } = await createUserService(userPayload);
     assert.strictEqual(error, true, `${userPayload.username} already in use`);
   });
@@ -56,7 +59,7 @@ describe("User suite", function () {
     assert.notEqual(result.id, undefined, "username not match or is empty");
   });
 
-  it("# unable to authenticate", async function () {
+  it("# unable to authenticate with wrong credentials", async function () {
     const userPayload = {
       username: "test_user1",
       password: "test123451",

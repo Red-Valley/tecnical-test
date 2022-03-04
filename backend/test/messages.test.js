@@ -7,6 +7,7 @@ const assert = require("assert");
 
 describe("Messages suite", function () {
   let user_id;
+  let lastMessageDate;
   before(async function () {
     require("../src/loaders/database")();
 
@@ -35,20 +36,17 @@ describe("Messages suite", function () {
   it("# empty user isn't allowed", async function () {
     const payload = {
       user_id: "",
-      content: 'Lorem Ipsum is not simply random text.',
+      content: "Lorem Ipsum is not simply random text.",
     };
     const { result } = await sendMessageService(payload);
-    assert.equal(
-      result.id,
-      undefined,
-      `stored a message without user id`
-    );
+    assert.equal(result.id, undefined, `stored a message without user id`);
   });
 
   it("# long messages not allowed", async function () {
     const payload = {
       user_id,
-      content: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.',
+      content:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.',
     };
     const { result } = await sendMessageService(payload);
     assert.equal(
@@ -62,9 +60,10 @@ describe("Messages suite", function () {
     const payload = {
       user_id,
       content: "https://i.imgur.com/3hvBo0n.gif",
-      command: true
+      command: true,
     };
     const { result } = await sendMessageService(payload);
+    lastMessageDate = result.createdAt;
     assert.notEqual(
       result.id,
       undefined,
@@ -78,6 +77,16 @@ describe("Messages suite", function () {
       result.length,
       2,
       `different messages quantity, expected: 2, received: ${result.length}`
+    );
+    assert.equal(
+      result[0].user.id,
+      user_id,
+      `seems that the fisrt returned message wasn't created by ${user_id}`
+    );
+    assert.equal(
+      new Date(result[0].createdAt).toISOString(),
+      new Date(lastMessageDate).toISOString(),
+      `last created message was not sent at ${new Date(lastMessageDate).toISOString()}`
     );
   });
 });
