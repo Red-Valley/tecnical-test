@@ -1,0 +1,23 @@
+{
+    "signin": {
+        "form": {
+            "user_label": "Username",
+            "pass_label": "Password",
+            "submit": "Sign In",
+            "signup": "Sign Up"
+        },
+        "errors": {
+            "empty": "All fields are required",
+            "invalid_credentials": "Invalid username or password"
+        }
+    },
+    "signup": {
+        "form": {
+            "user_label": "Username",
+            "fullname_label": "Full Name",
+            "pass_label": "Password",
+            "submit": "Sign Up",
+            "signin": "Sign In"
+        }
+    }
+}
