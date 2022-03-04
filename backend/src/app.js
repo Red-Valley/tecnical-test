@@ -16,7 +16,7 @@ const corsOptions = {
 
 const server = require("http").createServer(app);
 // websocket
-require("./loaders/socket")(server);
+require("./loaders/socket")(server, { cors: corsOptions });
 // database
 require("./loaders/database")();
 

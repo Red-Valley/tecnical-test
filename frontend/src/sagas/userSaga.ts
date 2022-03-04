@@ -7,21 +7,20 @@ import {
   signUpSuccess,
   userActionTypes,
 } from "actions/userActions";
-
-const baseUrl = process.env.REACT_APP_API;
+import { BASE_API } from "utils/constants";
 
 const signInUser = ({ username, password }: ISignIn): any =>
-  axios.post<IUser>(`${baseUrl}/user/signin/`, {
+  axios.post<IUser>(`${BASE_API}/user/signin/`, {
     username,
     password,
   });
 
 const signUpUser = (payload: ISignUp): any =>
-  axios.post<IUser>(`${baseUrl}/user/`, {
+  axios.post<IUser>(`${BASE_API}/user/`, {
     ...payload,
   });
 
-function* signInUserSaga({ payload }: SignInAction): any {
+export function* signInUserSaga({ payload }: SignInAction): any {
   try {
     const response = yield call(signInUser, payload);
     yield put(signInSuccess(response.data));
@@ -30,7 +29,7 @@ function* signInUserSaga({ payload }: SignInAction): any {
   }
 }
 
-function* signUpUserSaga({ payload }: SignUpAction): any {
+export function* signUpUserSaga({ payload }: SignUpAction): any {
   try {
     const response = yield call(signUpUser, payload);
     yield put(signUpSuccess(response.data));
