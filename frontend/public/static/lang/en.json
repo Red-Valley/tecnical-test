@@ -7,17 +7,24 @@
             "signup": "Sign Up"
         },
         "errors": {
-            "empty": "All fields are required",
+            "empty": "The username and/or password are empty",
             "invalid_credentials": "Invalid username or password"
         }
     },
     "signup": {
         "form": {
             "user_label": "Username",
-            "fullname_label": "Full Name",
+            "name_label": "Full Name",
             "pass_label": "Password",
             "submit": "Sign Up",
+            "signing_up": "Signing Up",
             "signin": "Sign In"
+        },
+        "errors": {
+            "empty": "All fields are required",
+            "invalid_name": "The 'name' length must be 1 - 100 characters and letters only",
+            "invalid_password": "The 'password' must contain letters and numbers and min 8 characters",
+            "invalid_signup": "Unable to signup, please retry"
         }
     }
 }

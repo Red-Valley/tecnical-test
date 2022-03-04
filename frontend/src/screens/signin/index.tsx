@@ -88,7 +88,7 @@ const SigninPage = () => {
             {errorMsg && <FormHelperText error>{errorMsg}</FormHelperText>}
           </CardContent>
           <CardActions sx={styles.cardActions}>
-            <Button size="small">
+            <Button size="small" disabled={pending}>
               <Link to={ROUTES.SIGNUP}>{signin.form.signup}</Link>
             </Button>
           </CardActions>

@@ -1,9 +1,10 @@
 import { RootState } from "reducers";
 import { useDispatch, useSelector } from "react-redux";
-import { signInRequest } from "actions/userActions";
 import { useEffect, useState } from "react";
+import { signUpRequest } from "actions/userActions";
+import { namePattern, passwordPattern } from "utils/helper";
 
-const useSignInForm = (messages: any) => {
+const useSignUpForm = (messages: any) => {
   const dispatch = useDispatch();
   const { pending, user, error } = useSelector(
     (state: RootState) => state.user
@@ -11,23 +12,27 @@ const useSignInForm = (messages: any) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [name, setName] = useState("");
 
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    error && setErrorMsg(messages.errors.invalid_credentials);
-  }, [error, messages.errors.invalid_credentials]);
+    error && setErrorMsg(messages.errors.invalid_signup);
+  }, [error, messages.errors.invalid_signup]);
 
   const handleSubmit = () => {
     setErrorMsg("");
-    if (!username.trim() || !password.trim()) {
+    if (!username.trim() || !password.trim() || !name.trim()) {
       setErrorMsg(messages.errors.empty);
+    } else if (!namePattern(name)) {
+      setErrorMsg(messages.errors.invalid_name);
+    } else if (!passwordPattern(password)) {
+      setErrorMsg(messages.errors.invalid_password);
     } else {
-      dispatch(signInRequest({ username, password }));
+      dispatch(signUpRequest({ username, password, name }));
     }
   };
+
   return {
     pending,
     user,
@@ -35,12 +40,12 @@ const useSignInForm = (messages: any) => {
     errorMsg,
     username,
     setUsername,
+    name,
+    setName,
     password,
     setPassword,
-    passwordVisible,
-    setPasswordVisible,
     handleSubmit,
   };
 };
 
-export default useSignInForm;
+export default useSignUpForm;

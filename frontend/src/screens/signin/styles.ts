@@ -1,5 +1,5 @@
 export const styles = {
-  cardWrapper: { maxWidth: 300 },
+  cardWrapper: { width: 300 },
   cardContent: {
     display: "flex",
     flexDirection: "column",

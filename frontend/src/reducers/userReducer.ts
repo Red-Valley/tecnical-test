@@ -32,13 +32,15 @@ const userReducer = (state = initialState, action: UserAction) => {
     case userActionTypes.SIGNUP_REQUEST:
       return {
         ...state,
+        error: false,
         pending: true,
       };
     case userActionTypes.SIGNUP_SUCCESS:
       return {
         ...state,
-        user: action.payload.user,
+        user: action.payload,
         pending: false,
+        error: false,
       };
     case userActionTypes.SIGNUP_FAILURE:
       return {
