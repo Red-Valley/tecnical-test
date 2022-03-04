@@ -13,15 +13,15 @@ module.exports = (server) => {
       previousRoom = currentRoom;
     };
 
-    socket.on(SOCKET_EVENTS.JOIN_TO_ROOM, async (room_id) => {
+    socket.on(SOCKET_EVENTS.JOIN_TO_ROOM, async (room_id = 'default') => {
       changeRoom(room_id);
       console.log("joined to room", room_id);
     });
 
     socket.on(
       SOCKET_EVENTS.SEND_ROOM_MESSAGE,
-      async ({ room_id, user_id, content, command }) => {
-        const payload = { room_id, user_id, content, command };
+      async ({ room_id = 'default', user_id, content, command }) => {
+        const payload = { user_id, content, command };
         const { error, result } = await sendMessageService(payload);
         !error &&
           io.to(room_id).emit(SOCKET_EVENTS.NEW_ROOM_MESSAGE, {

@@ -2,10 +2,10 @@ const messagesSchema = require("../../models/messages");
 const { ServiceResultHandling } = require("../../utils/helper");
 const { STATUS_CODE } = require("../../utils/constants");
 
-const listMessageService = async ({ room_id, page = 0, limit = 15 }) => {
+const listMessageService = async ({ page = 0, limit = 15 } = {}) => {
   try {
     const messages = await messagesSchema.find(
-      { room_id },
+      {},
       {
         createdAt: true,
         uid: true,
@@ -32,22 +32,15 @@ const listMessageService = async ({ room_id, page = 0, limit = 15 }) => {
   }
 };
 
-const sendMessageService = async ({
-  room_id,
-  user_id,
-  content,
-  command = false,
-}) => {
+const sendMessageService = async ({ user_id, content, command = false }) => {
   try {
+    const payload = { user_id, content, command };
     const message = await messagesSchema.create({
-      room_id,
-      user_id,
-      content,
-      command,
+      ...payload,
     });
     return {
       statusCode: STATUS_CODE.OK,
-      result: { id: message.id, createdAt: message.createdAt },
+      result: { ...payload, id: message.id, createdAt: message.createdAt },
     };
   } catch (error) {
     return {

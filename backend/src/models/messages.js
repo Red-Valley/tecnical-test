@@ -3,7 +3,6 @@ const { Schema } = mongoose;
 
 const MessagesSchema = new Schema(
   {
-    rid: { type: mongoose.Schema.Types.ObjectId, alias: "room_id" },
     uid: { type: mongoose.Schema.Types.ObjectId, alias: "user_id" },
     cmd: { type: Boolean, alias: "command", default: false },
     c: {
