@@ -1,11 +1,10 @@
 version: '3.8'
 services:
   expressjs:
-    container_name: rv-backend
-    build: ./backend
+    container_name: rv-app
+    build: ./
     env_file:
-      - ./backend/.env
-    # FIXME: backend container ports should be exposed through nginx
+      - ./.env
     ports:
       - 8000:8000
   mongodb:
@@ -20,11 +19,11 @@ services:
     ports:
       - 27017:27017
     env_file:
-      - ./backend/.env
+      - ./.env
   mongo-express:
     image: mongo-express
     restart: always
     ports:
       - 8081:8081
     env_file:
-      - ./backend/.env
+      - ./.env
