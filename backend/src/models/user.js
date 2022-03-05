@@ -19,7 +19,6 @@ const UserSchema = new Schema(
       required: "This field is required!",
       alias: "password",
       minlength: 8,
-      maxlength: 20,
     },
     n: {
       type: String,
@@ -29,6 +28,7 @@ const UserSchema = new Schema(
       maxlength: 100,
     },
     ph: { type: String, alias: "photo" },
+    t: { type: String, alias: "token" },
   },
   {
     timestamps: true,
@@ -38,8 +38,10 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre("save", function (next) {
-  const hash = bcrypt.hashSync(this.password, SALT_ROUNDS);
-  this.password = hash;
+  if(!this.isNew) {
+    const hash = bcrypt.hashSync(this.password, SALT_ROUNDS);
+    this.password = hash;
+  }
   next();
 });
 

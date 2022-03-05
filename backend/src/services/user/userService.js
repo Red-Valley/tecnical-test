@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const userSchema = require("../../models/user");
 const { AVATAR_URL } = require("../../../config");
-const { ServiceResultHandling } = require("../../utils/helper");
+const { ServiceResultHandling, SignUserToken } = require("../../utils/helper");
 const { STATUS_CODE } = require("../../utils/constants");
 
 const createUserService = async ({ username, password, name }) => {
@@ -18,11 +18,15 @@ const createUserService = async ({ username, password, name }) => {
       ...payload,
       password,
     });
+    const token = SignUserToken(user.id, username);
+    user.t = token;
+    user.save();
 
     return {
       statusCode: STATUS_CODE.CREATED,
       result: {
         ...payload,
+        token,
         id: user.id,
       },
     };
@@ -41,7 +45,7 @@ const authenticateService = async ({ username, password }) => {
       {
         u: username,
       },
-      { u: true, ph: true, n: true, _id: true, p: true }
+      { u: true, ph: true, n: true, _id: true, p: true, t: true }
     );
     if (user && bcrypt.compareSync(password, user.password)) {
       return {
@@ -51,6 +55,7 @@ const authenticateService = async ({ username, password }) => {
           username,
           name: user.name,
           photo: user.photo,
+          token: user.token
         },
       };
     }

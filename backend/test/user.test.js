@@ -22,6 +22,7 @@ describe("User suite", function () {
     };
     const { result } = await createUserService(userPayload);
     assert.notEqual(result.id, undefined, "unable to create this user");
+    assert.notEqual(result.token, undefined, "the usar lacks of token");
   });
 
   it("# prevents empty username & password", async function () {
