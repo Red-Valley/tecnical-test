@@ -1,6 +1,6 @@
 export const styles = {
   messageListWrapper: {
-    height: "calc(100vh - 150px)",
+    height: "calc(100vh - 144px)",
     overflowY: "auto",
   },
   messageList: {

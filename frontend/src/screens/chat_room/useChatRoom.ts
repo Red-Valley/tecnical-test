@@ -15,6 +15,9 @@ const useChatRoom = (messagesEndRef: RefObject<HTMLLIElement>) => {
   );
   const { user }: UserState = useSelector((state: RootState) => state.user);
 
+  const [commandSearchTerm, setCommandSearchTerm] = useState<string | null>(
+    null
+  );
   const [initialScroll, setInitialScroll] = useState(true);
 
   useEffect(() => {
@@ -42,13 +45,24 @@ const useChatRoom = (messagesEndRef: RefObject<HTMLLIElement>) => {
     dispatch(listMessagesRequest({ page, token: user?.token || "" }));
   };
 
-  const handleSubmit = (content: string) => {
+  const handleSubmit = (content: string, command = false) => {
     dispatch(
       sendMessage({
         content,
+        command,
         user_id: user?.id || "",
       })
     );
+  };
+
+  const handleDialogOpen = (search?: string) => {
+    setCommandSearchTerm(search || "");
+  };
+  const handleDialogClose = (gif?: string) => {
+    if (gif) {
+      handleSubmit(gif, true);
+    }
+    setCommandSearchTerm(null);
   };
 
   const handleLogout = () => {
@@ -56,8 +70,11 @@ const useChatRoom = (messagesEndRef: RefObject<HTMLLIElement>) => {
   };
 
   return {
+    commandSearchTerm,
     messages,
     user,
+    handleDialogOpen,
+    handleDialogClose,
     handleLoadMore,
     handleSubmit,
     handleLogout,

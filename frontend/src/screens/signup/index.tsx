@@ -51,7 +51,7 @@ const SignupPage = () => {
   } = useSignUpForm(signup);
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="xl" sx={globalStyles.primaryBg}>
       <Box component="form" sx={globalStyles.boxContainer}>
         <Card sx={styles.cardWrapper}>
           <CardContent sx={styles.cardContent}>

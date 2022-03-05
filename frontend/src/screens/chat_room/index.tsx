@@ -7,13 +7,22 @@ import { useInfiniteScroll } from "hooks/useInfiniteScroll";
 import ChatHeader from "./components/chat_header";
 import ChatFooter from "./components/chat_footer";
 import useChatRoom from "./useChatRoom";
+import GiphyDialog from "components/giphy_dialog";
 
 const ChatRoomPage = () => {
   const messagesEndRef = useRef<HTMLLIElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { user, messages, handleLoadMore, handleSubmit, handleLogout } =
-    useChatRoom(messagesEndRef);
+  const {
+    user,
+    messages,
+    commandSearchTerm,
+    handleDialogOpen,
+    handleDialogClose,
+    handleLoadMore,
+    handleSubmit,
+    handleLogout,
+  } = useChatRoom(messagesEndRef);
 
   useInfiniteScroll({
     elementRef: scrollRef,
@@ -38,7 +47,8 @@ const ChatRoomPage = () => {
             ))}
         </List>
       </Box>
-      <ChatFooter onSubmit={handleSubmit} />
+      <ChatFooter onSubmit={handleSubmit} onOpenGifDialog={handleDialogOpen} />
+      <GiphyDialog search={commandSearchTerm || ""} open={typeof commandSearchTerm === "string"} onClose={handleDialogClose} />
     </PageContainer>
   );
 };

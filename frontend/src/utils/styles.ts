@@ -1,4 +1,5 @@
 export const globalStyles = {
+  primaryBg: { backgroundColor: "var(--primary)" },
   boxContainer: {
     height: "100vh",
     display: "flex",
@@ -7,7 +8,8 @@ export const globalStyles = {
     alignItems: "center",
   },
   fullWidth: { width: "100%" },
+  midWidth: { width: "50%" },
 
-  flexRow: { display: 'flex' },
-  flexCol: { display: 'flex', flexDirection: 'column' },
+  flexRow: { display: "flex" },
+  flexCol: { display: "flex", flexDirection: "column" },
 };

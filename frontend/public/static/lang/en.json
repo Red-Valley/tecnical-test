@@ -26,5 +26,18 @@
             "invalid_password": "The 'password' must contain letters and numbers and min 8 characters",
             "invalid_signup": "Unable to signup, please retry"
         }
+    },
+    "chat_room": {
+        "header": {
+            "options_tooltip": "Options",
+            "logout": "Logout"
+        },
+        "footer": {
+            "label": "Type a Message",
+            "placeholder": "Also send GIFs by typing `/giphy some text...`"
+        },
+        "message_card": {
+            "user": "You"
+        }
     }
 }

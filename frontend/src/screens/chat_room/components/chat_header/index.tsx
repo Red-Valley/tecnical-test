@@ -9,16 +9,15 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { useI18n } from "hooks/useI18n";
 import { useState } from "react";
 
-interface ChatHeaderProps {
-  user?: IUser;
-  onLogout: () => void;
-}
-
 const ChatHeader = ({ user, onLogout }: ChatHeaderProps) => {
+  const { messages: langMessages, locale } = useI18n();
+  const { chat_room } = langMessages[locale];
+
   const [anchorRef, setAnchorRef] = useState<HTMLElement | null>(null);
-  const options = [{ name: "Logout", onClick: () => handleLogout() }];
+  const options = [{ name: chat_room.header.logout, onClick: () => handleLogout() }];
 
   const handleOpenOptions = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorRef(e.currentTarget);
@@ -32,12 +31,16 @@ const ChatHeader = ({ user, onLogout }: ChatHeaderProps) => {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Box sx={{ flexGrow: 0 }}>
-          <Tooltip title="Open settings">
-            <IconButton sx={{ p: 1 }} onClick={handleOpenOptions}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip title={chat_room.header.options_tooltip}>
+            <IconButton
+              sx={{ p: 1, gap: 1, color: "var(--third)" }}
+              onClick={handleOpenOptions}
+            >
               <Avatar alt={user?.username} src={user?.photo} />
             </IconButton>
           </Tooltip>
+          <Box component="h3">{user?.name}</Box>
           <Menu
             sx={{ mt: "45px" }}
             id="menu-appbar"
