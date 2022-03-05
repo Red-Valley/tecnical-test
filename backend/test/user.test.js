@@ -1,11 +1,13 @@
 const {
   createUserService,
   authenticateService,
+  getUserProfileService,
 } = require("../src/services/user/userService");
 const assert = require("assert");
 
 describe("User suite", function () {
   let connection;
+  let user;
   before(function () {
     connection = require("../src/loaders/database")();
   });
@@ -21,6 +23,7 @@ describe("User suite", function () {
       name: "mock user",
     };
     const { result } = await createUserService(userPayload);
+    user = result;
     assert.notEqual(result.id, undefined, "unable to create this user");
     assert.notEqual(result.token, undefined, "the usar lacks of token");
   });
@@ -73,5 +76,18 @@ describe("User suite", function () {
       true,
       "invalid credentials were received as valid"
     );
+  });
+
+  it("# return a profile using `user_id`", async function () {
+    const { result } = await getUserProfileService({ user_id: user.id });
+
+    assert.equal(result.id, user.id, "id doesn't match");
+    assert.equal(result.username, user.username, "username doesn't match");
+    assert.equal(result.token, user.token, "token doesn't match");
+  });
+
+  it("# return an error using an invalid `user_id`", async function () {
+    const { result } = await getUserProfileService({ user_id: "FAKE_ID" });
+    assert.equal(result.id, undefined, "found an unexisting user!!??");
   });
 });

@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
-    jwt.verify(token, JWT_SECRET);
+    req.user = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     return HttpResponseHandling[STATUS_CODE.UNAUTHORIZED](res, "unauthorized");
   }

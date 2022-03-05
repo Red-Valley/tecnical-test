@@ -39,6 +39,38 @@ const createUserService = async ({ username, password, name }) => {
   }
 };
 
+const getUserProfileService = async ({ user_id }) => {
+  try {
+    const user = await userSchema.findById(
+      user_id,
+      { u: true, ph: true, n: true, _id: true, p: true, t: true }
+    );
+    if (user) {
+      return {
+        statusCode: STATUS_CODE.OK,
+        result: {
+          id: user.id,
+          username: user.username,
+          name: user.name,
+          photo: user.photo,
+          token: user.token,
+        },
+      };
+    }
+    return {
+      error: true,
+      result: ServiceResultHandling.handleError("invalid user identifier"),
+      statusCode: STATUS_CODE.BAD_REQUEST,
+    };
+  } catch (error) {
+    return {
+      error: true,
+      result: ServiceResultHandling.handleError("unexpected error"),
+      statusCode: STATUS_CODE.SERVER_ERROR,
+    };
+  }
+};
+
 const authenticateService = async ({ username, password }) => {
   try {
     const user = await userSchema.findOne(
@@ -55,7 +87,7 @@ const authenticateService = async ({ username, password }) => {
           username,
           name: user.name,
           photo: user.photo,
-          token: user.token
+          token: user.token,
         },
       };
     }
@@ -74,6 +106,7 @@ const authenticateService = async ({ username, password }) => {
 };
 
 module.exports = {
+  getUserProfileService,
   authenticateService,
   createUserService,
 };
