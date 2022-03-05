@@ -31,9 +31,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1", router);
 
 // client
-app.use(express.static(path.join(__dirname, '../dist',)))
+app.use(express.static(path.join(__dirname, '../frontend/build',)))
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/build/', 'index.html'))
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'))
 });
 
 app.set("port", PORT);
