@@ -6,6 +6,10 @@
 - `node 16.x`
 - `docker` - optional if you don't want to use the [Quick Start](#quick-start)
 
+## Live Demo
+
+You can checkout a live demo [here](https://rv-test-hs.herokuapp.com/).
+
 ## Before start
 
 Before you can start to test/check this project, you might want to generate a couple of environment files, one for root folder called `'.env'` and the other one inside `frontend` folder with the same name (`'.env'`).
@@ -16,13 +20,13 @@ PD: You have to provide your own values of each **.env** key
 
 ## Installation
 
-### Root dependencies
+### Root/Server dependencies
 
-Install the **Root dependencies** (which are the backend dependencies) using `$ npm install`.
+Install the **Root/Server dependencies** (which are the server dependencies) using `$ npm install`.
 
-### Frontend/React dependencies
+### Client dependencies
 
-Move to `frontend` folder and install the **Frontend/React dependencies** using `$ npm install`.
+Move to `frontend` folder and install the **Client dependencies** using `$ npm install`.
 
 ## Running locally
 
