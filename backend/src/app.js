@@ -1,4 +1,5 @@
 const { PORT } = require("../config");
+const path = require("path");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -28,6 +29,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use("/api/v1", router);
+
+// client
+app.use(express.static(path.join(__dirname, '../dist',)))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/build/', 'index.html'))
+});
 
 app.set("port", PORT);
 
