@@ -1,3 +1,10 @@
+:root {
+  --primary: #075e54;
+  --secondary: #128c7e;
+  --third: #ece5dd;
+  --fourth: #2a3942;
+}
+
 * {
   box-sizing: border-box;
 }

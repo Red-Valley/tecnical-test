@@ -28,6 +28,7 @@
       "@constants": ["constants"],
       "@hooks": ["hooks"],
       "@styles": ["styles"],
+      "@styled_components": ["styled_components"],
       "@reducers": ["reducers"],
       "@store": ["store"],
       "@actions": ["actions"],

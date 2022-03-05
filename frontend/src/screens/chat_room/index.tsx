@@ -1,84 +1,47 @@
-import { RootState } from "@reducers";
-import { listMessagesRequest, sendMessage } from "actions/chatRoomActions";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import MessageCard from "./components/message_card";
+import { List, Box } from "@mui/material";
+import { useRef } from "react";
+import { PageContainer } from "styled_components";
+import { styles } from "./styles";
+import { useInfiniteScroll } from "hooks/useInfiniteScroll";
+import ChatHeader from "./components/chat_header";
+import ChatFooter from "./components/chat_footer";
+import useChatRoom from "./useChatRoom";
 
 const ChatRoomPage = () => {
-  const dispatch = useDispatch();
-  const { pending, messages, error }: ChatRoomState = useSelector(
-    (state: RootState) => state.chatRoom
-  );
+  const messagesEndRef = useRef<HTMLLIElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const [page] = useState(0);
+  const { user, messages, handleLoadMore, handleSubmit } =
+    useChatRoom(messagesEndRef);
 
-  useEffect(() => {
-    dispatch(listMessagesRequest({ page }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useInfiniteScroll({
+    elementRef: scrollRef,
+    onLoadMore: () => handleLoadMore(),
+    loadOnMount: true,
+    hasMoreData: true,
+  });
 
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = (e: any) => {
-    e && e.preventDefault();
-    dispatch(
-      sendMessage({
-        content: message,
-        user_id: "62223f41a5ce29b1a97fb55c",
-      })
-    );
-  };
+  const handleLogout = () => {};
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 5,
-        flex: 1,
-        minHeight: "100vh",
-      }}
-    >
-      <div>
-        <h1>Messages</h1>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column-reverse",
-          flex: 1,
-          padding: 15,
-          gap: 3,
-        }}
-      >
-        {messages &&
-          messages.map((message, index) => (
-            <div key={`message_${index}`}>
-              <p>created by: {message.user_id}</p>
-              <p>message: {message.content}</p>
-              <p>at: {message.createdAt}</p>
-            </div>
-          ))}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          flex: 0.1,
-          padding: 15,
-        }}
-      >
-        <form style={{ display: "flex" }} action="" onSubmit={handleSubmit}>
-          <input
-            style={{ flex: 1 }}
-            id="input"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <button onClick={handleSubmit}>Send</button>
-        </form>
-      </div>
-    </div>
+    <PageContainer>
+      <ChatHeader user={user} onLogout={handleLogout} />
+      <Box ref={scrollRef} component="div" sx={styles.messageListWrapper}>
+        <List sx={styles.messageList}>
+          <li ref={messagesEndRef} />
+          {messages &&
+            messages.map((message, index) => (
+              <MessageCard
+                key={`message_${index}`}
+                owner={user?.id === message.user.id}
+                message={message}
+              />
+            ))}
+        </List>
+      </Box>
+      <ChatFooter onSubmit={handleSubmit} />
+    </PageContainer>
   );
 };
 

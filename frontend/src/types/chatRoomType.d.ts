@@ -8,9 +8,13 @@ interface ISendMessageAction {
   payload: ISendMessage;
 }
 
+interface IListMsgPage {
+  page: number;
+}
 interface IMessage extends ISendMessage {
   id: string;
-  createdAt: Date;
+  user: IUser;
+  createdAt: string;
 }
 interface IListMessagesAction {
   type: string;
@@ -18,9 +22,10 @@ interface IListMessagesAction {
 }
 interface IMessagesAction {
   type: string;
-  payload: IMessage | IMessage[];
+  payload: T<IMessage | IMessage[] | IListMsgPage>;
 }
 
 interface ChatRoomState extends BaseActionState {
-    messages?: IMessage[],
+  page?: number;
+  messages?: IMessage[];
 }

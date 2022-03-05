@@ -7,4 +7,7 @@ export const globalStyles = {
     alignItems: "center",
   },
   fullWidth: { width: "100%" },
+
+  flexRow: { display: 'flex' },
+  flexCol: { display: 'flex', flexDirection: 'column' },
 };

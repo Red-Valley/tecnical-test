@@ -39,10 +39,8 @@ function* read(socket: any): any {
 export function subscribe(socket: any): any {
   return eventChannel((emit) => {
     const update = (message: IMessage) => {
-      console.log("new message", message);
       return emit(receiveMessage(message));
     };
-    console.log("socket listening on get messages");
     socket.on(SOCKET_EVENTS.RECEIVE_ROOM_MESSAGES, update);
     return () => {
       // socket.off();

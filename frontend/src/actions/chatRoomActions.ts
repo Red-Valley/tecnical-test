@@ -1,4 +1,6 @@
 export enum chatRoomActionTypes {
+  SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
+  
   LIST_MESSAGES_REQUEST = "LIST_MESSAGES_REQUEST",
   LIST_MESSAGES_SUCCESS = "LIST_MESSAGES_SUCCESS",
   LIST_MESSAGES_FAILURE = "LIST_MESSAGES_FAILURE",
@@ -11,6 +13,11 @@ export enum chatRoomActionTypes {
   SEND_MESSAGE = "SEND_MESSAGE",
   RECEIVE_MESSAGE = "RECEIVE_MESSAGE",
 }
+
+export const setCurrentMessagesPage = (page = 0) => ({
+  type: chatRoomActionTypes.SET_CURRENT_PAGE,
+  payload: { page }
+})
 
 export const listMessagesRequest = (payload: BasePagination) => ({
   type: chatRoomActionTypes.LIST_MESSAGES_REQUEST,
