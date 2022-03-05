@@ -23,6 +23,7 @@
     "baseUrl": "./src",
     "paths": {
       "@screens/*": ["screens/*"],
+      "@context/*": ["context/*"],
       "@components/*": ["components/*"],
       "@config": ["config"],
       "@constants": ["constants"],

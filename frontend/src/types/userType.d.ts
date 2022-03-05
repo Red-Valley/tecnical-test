@@ -1,3 +1,7 @@
+interface IUserProfile {
+  token: string;
+}
+
 interface ISignIn {
   username: string;
   password: string;
@@ -16,6 +20,7 @@ interface IUser {
 }
 
 interface UserState extends BaseActionState {
+  gettingProfile?: boolean;
   user?: IUser;
 }
 
@@ -32,4 +37,9 @@ interface SignInAction {
 interface SignUpAction {
   type: string;
   payload: ISignUp;
+}
+
+interface UserProfileAction {
+  type: string;
+  payload: IUserProfile;
 }

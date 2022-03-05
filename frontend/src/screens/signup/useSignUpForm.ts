@@ -6,7 +6,7 @@ import { namePattern, passwordPattern } from "utils/helper";
 
 const useSignUpForm = (messages: any) => {
   const dispatch = useDispatch();
-  const { pending, user, error } = useSelector(
+  const { pending, error } = useSelector(
     (state: RootState) => state.user
   );
 
@@ -35,7 +35,6 @@ const useSignUpForm = (messages: any) => {
 
   return {
     pending,
-    user,
 
     errorMsg,
     username,

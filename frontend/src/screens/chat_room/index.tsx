@@ -12,7 +12,7 @@ const ChatRoomPage = () => {
   const messagesEndRef = useRef<HTMLLIElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { user, messages, handleLoadMore, handleSubmit } =
+  const { user, messages, handleLoadMore, handleSubmit, handleLogout } =
     useChatRoom(messagesEndRef);
 
   useInfiniteScroll({
@@ -21,8 +21,6 @@ const ChatRoomPage = () => {
     loadOnMount: true,
     hasMoreData: true,
   });
-
-  const handleLogout = () => {};
 
   return (
     <PageContainer>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const useSignInForm = (messages: any) => {
   const dispatch = useDispatch();
-  const { pending, user, error } = useSelector(
+  const { pending, error } = useSelector(
     (state: RootState) => state.user
   );
 
@@ -30,7 +30,6 @@ const useSignInForm = (messages: any) => {
   };
   return {
     pending,
-    user,
 
     errorMsg,
     username,

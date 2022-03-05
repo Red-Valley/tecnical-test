@@ -8,6 +8,9 @@ interface ISendMessageAction {
   payload: ISendMessage;
 }
 
+interface IListMessagesRequest extends BasePagination{
+  token: string;
+}
 interface IListMsgPage {
   page: number;
 }
@@ -18,7 +21,7 @@ interface IMessage extends ISendMessage {
 }
 interface IListMessagesAction {
   type: string;
-  payload: BasePagination;
+  payload: IListMessagesRequest;
 }
 interface IMessagesAction {
   type: string;

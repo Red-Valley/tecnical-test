@@ -1,32 +1,48 @@
-import { call, put, take, fork, takeLatest } from "redux-saga/effects";
+import { call, put, take, fork, takeLatest, all } from "redux-saga/effects";
 import axios from "axios";
 import { BASE_API, BASE_URL, SOCKET_EVENTS } from "utils/constants";
 import {
   chatRoomActionTypes,
   listMessagesFailure,
   listMessagesSuccess,
-  receiveMessage
+  receiveMessage,
 } from "actions/chatRoomActions";
 import io from "socket.io-client";
 import { eventChannel } from "redux-saga";
 
-const listMessages = ({ page, limit }: BasePagination): any => {
-  let queryString = '?';
-  if(typeof page === "number") { queryString += `page=${page}&` }
-  if(limit) { queryString += `limit=${limit}` }
-  return axios.get<IMessage[]>(`${BASE_API}/message/${queryString}`);
-}
-
-const connect = (): any => {
-  const socket = io(BASE_URL as string);
-  return new Promise((resolve) => {
-    socket.on(SOCKET_EVENTS.CONNECTION, () => {
-      // join to default room on connect
-      socket.emit(SOCKET_EVENTS.JOIN_TO_ROOM);
-      resolve(socket);
-    });
+const listMessages = ({ token, page, limit }: IListMessagesRequest): any => {
+  let queryString = "?";
+  if (typeof page === "number") {
+    queryString += `page=${page}&`;
+  }
+  if (limit) {
+    queryString += `limit=${limit}`;
+  }
+  return axios.get<IMessage[]>(`${BASE_API}/message/${queryString}`, {
+    headers: {
+      "x-access-token": token,
+    },
   });
 };
+
+function* connect({ payload: { token } }: any): any {
+  const socket = io(BASE_URL as string, {
+    transports: ["websocket", "polling"],
+    auth: { token },
+  });
+  yield call(
+    () =>
+      new Promise((resolve) => {
+        socket.on(SOCKET_EVENTS.CONNECTION, () => {
+          // join to default room on connect
+          socket.emit(SOCKET_EVENTS.JOIN_TO_ROOM);
+          resolve(socket);
+        });
+      })
+  );
+  yield fork(read, socket);
+  yield fork(write, socket);
+}
 
 function* read(socket: any): any {
   const channel = yield call(subscribe, socket);
@@ -43,7 +59,7 @@ export function subscribe(socket: any): any {
     };
     socket.on(SOCKET_EVENTS.RECEIVE_ROOM_MESSAGES, update);
     return () => {
-      // socket.off();
+      // socket.disconnect();
     };
   });
 }
@@ -65,8 +81,8 @@ export function* listMessagesSaga({ payload }: IListMessagesAction): any {
 }
 
 export default function* chatRoomSaga(): any {
-  yield takeLatest(chatRoomActionTypes.LIST_MESSAGES_REQUEST, listMessagesSaga);
-  const socket = yield call(connect);
-  yield fork(read, socket);
-  yield fork(write, socket);
+  yield all([
+    takeLatest(chatRoomActionTypes.CONNECT_TO_ROOM as keyof unknown, connect),
+    takeLatest(chatRoomActionTypes.LIST_MESSAGES_REQUEST, listMessagesSaga),
+  ]);
 }

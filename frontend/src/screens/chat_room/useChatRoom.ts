@@ -1,5 +1,10 @@
 import { RootState } from "@reducers";
-import { listMessagesRequest, sendMessage } from "actions/chatRoomActions";
+import {
+  connectoRoomAction,
+  listMessagesRequest,
+  sendMessage,
+} from "actions/chatRoomActions";
+import { logoutAction } from "actions/userActions";
 import { RefObject, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -12,9 +17,10 @@ const useChatRoom = (messagesEndRef: RefObject<HTMLLIElement>) => {
 
   const [initialScroll, setInitialScroll] = useState(true);
 
-  const handleLoadMore = () => {
-    dispatch(listMessagesRequest({ page }));
-  };
+  useEffect(() => {
+    dispatch(connectoRoomAction(user?.token || ""));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const scrollToBottom = useCallback((elRef: RefObject<HTMLLIElement>) => {
     if (elRef.current) {
@@ -32,6 +38,10 @@ const useChatRoom = (messagesEndRef: RefObject<HTMLLIElement>) => {
     }
   }, [messages, initialScroll, scrollToBottom, messagesEndRef]);
 
+  const handleLoadMore = () => {
+    dispatch(listMessagesRequest({ page, token: user?.token || "" }));
+  };
+
   const handleSubmit = (content: string) => {
     dispatch(
       sendMessage({
@@ -41,12 +51,17 @@ const useChatRoom = (messagesEndRef: RefObject<HTMLLIElement>) => {
     );
   };
 
+  const handleLogout = () => {
+    dispatch(logoutAction());
+  };
+
   return {
     messages,
     user,
     handleLoadMore,
     handleSubmit,
-    scrollToBottom
+    handleLogout,
+    scrollToBottom,
   };
 };
 

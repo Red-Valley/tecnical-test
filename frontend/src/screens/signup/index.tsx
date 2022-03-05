@@ -15,18 +15,31 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { styles } from "screens/signin/styles";
 import { globalStyles } from "utils/styles";
 import { ROUTES } from "routes/constants";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useI18n } from "hooks/useI18n";
 import useSignUpForm from "./useSignUpForm";
+import { RootState } from "@reducers";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { STORED_TOKEN_KEY } from "utils/constants";
 
 const SignupPage = () => {
   const { locale, messages } = useI18n();
   const { signup } = messages[locale];
 
+  const { user }: UserState = useSelector((state: RootState) => state.user);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem(STORED_TOKEN_KEY, user.token || "");
+      navigate(ROUTES.CHAT_ROOM);
+    }
+  }, [user, navigate]);
+
   const {
     pending,
-    // user,
-
     errorMsg,
     username,
     setUsername,

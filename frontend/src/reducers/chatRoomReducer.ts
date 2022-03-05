@@ -46,6 +46,7 @@ const chatRoomReducer = (state = initialState, action: IMessagesAction) => {
         pending: false,
       };
 
+    case chatRoomActionTypes.CONNECT_TO_ROOM:
     default:
       return { ...state };
   }

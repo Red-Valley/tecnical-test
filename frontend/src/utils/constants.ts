@@ -3,6 +3,8 @@ export const LANGS = {
   en: "en",
 };
 
+export const STORED_TOKEN_KEY = "token";
+
 export const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const BASE_API = process.env.REACT_APP_API;
 

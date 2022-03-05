@@ -1,6 +1,9 @@
 export enum chatRoomActionTypes {
   SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
-  
+
+  CONNECT_TO_ROOM = "CONNECT_TO_ROOM",
+  DISCONECT_ROOM = "DISCONECT_ROOM",
+
   LIST_MESSAGES_REQUEST = "LIST_MESSAGES_REQUEST",
   LIST_MESSAGES_SUCCESS = "LIST_MESSAGES_SUCCESS",
   LIST_MESSAGES_FAILURE = "LIST_MESSAGES_FAILURE",
@@ -16,10 +19,18 @@ export enum chatRoomActionTypes {
 
 export const setCurrentMessagesPage = (page = 0) => ({
   type: chatRoomActionTypes.SET_CURRENT_PAGE,
-  payload: { page }
-})
+  payload: { page },
+});
 
-export const listMessagesRequest = (payload: BasePagination) => ({
+export const connectoRoomAction = (token: string) => ({
+  type: chatRoomActionTypes.CONNECT_TO_ROOM,
+  payload: { token },
+});
+export const disconnecRoomAction = () => ({
+  type: chatRoomActionTypes.DISCONECT_ROOM
+});
+
+export const listMessagesRequest = (payload: IListMessagesRequest) => ({
   type: chatRoomActionTypes.LIST_MESSAGES_REQUEST,
   payload,
 });

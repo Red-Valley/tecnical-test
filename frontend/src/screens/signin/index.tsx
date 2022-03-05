@@ -18,18 +18,32 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { styles } from "./styles";
 import { globalStyles } from "utils/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "routes/constants";
 import { useI18n } from "hooks/useI18n";
 import useSignInForm from "./useSignInForm";
+import { useEffect } from "react";
+import { STORED_TOKEN_KEY } from "utils/constants";
+import { RootState } from "reducers";
+import { useSelector } from "react-redux";
 
 const SigninPage = () => {
   const { locale, messages } = useI18n();
   const { signin } = messages[locale];
 
+  const { user }: UserState = useSelector((state: RootState) => state.user);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem(STORED_TOKEN_KEY, user.token || "");
+      navigate(ROUTES.CHAT_ROOM);
+    }
+  }, [user, navigate]);
+
   const {
     pending,
-    // user,
     errorMsg,
     username,
     setUsername,

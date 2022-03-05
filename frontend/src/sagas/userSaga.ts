@@ -1,6 +1,8 @@
-import { call, put, all, takeLatest } from "redux-saga/effects";
+import { call, put, all, takeLatest, take } from "redux-saga/effects";
 import axios from "axios";
 import {
+  profileFailure,
+  profileSuccess,
   signInFailure,
   signInSuccess,
   signUpFailure,
@@ -14,6 +16,17 @@ const signInUser = ({ username, password }: ISignIn): any =>
     username,
     password,
   });
+
+const getUserProfile = ({ token }: IUserProfile): any =>
+  axios.post<IUser>(
+    `${BASE_API}/user/profile/`,
+    {},
+    {
+      headers: {
+        "x-access-token": token,
+      },
+    }
+  );
 
 const signUpUser = (payload: ISignUp): any =>
   axios.post<IUser>(`${BASE_API}/user/`, {
@@ -29,6 +42,15 @@ export function* signInUserSaga({ payload }: SignInAction): any {
   }
 }
 
+export function* getUserProfileSaga({ payload }: UserProfileAction): any {
+  try {
+    const response = yield call(getUserProfile, payload);
+    yield put(profileSuccess(response.data));
+  } catch (error) {
+    yield put(profileFailure({ error: true }));
+  }
+}
+
 export function* signUpUserSaga({ payload }: SignUpAction): any {
   try {
     const response = yield call(signUpUser, payload);
@@ -40,7 +62,9 @@ export function* signUpUserSaga({ payload }: SignUpAction): any {
 
 export default function* userSaga() {
   yield all([
-    takeLatest(userActionTypes.SIGNUP_REQUEST as keyof unknown, signUpUserSaga),
-    takeLatest(userActionTypes.SIGNIN_REQUEST as keyof unknown, signInUserSaga),
+    takeLatest(userActionTypes.PROFILE_REQUEST, getUserProfileSaga),
+    takeLatest(userActionTypes.SIGNUP_REQUEST, signUpUserSaga),
+    takeLatest(userActionTypes.SIGNIN_REQUEST, signInUserSaga),
+    take(userActionTypes.LOGOUT),
   ]);
 }
