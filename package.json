@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "test": "mocha"
+    "test": "mocha",
+    "heroku-postbuild": "cd frontend && npm i && npm run build"
   },
   "keywords": [],
   "author": "elhs25",
