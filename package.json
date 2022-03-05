@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server",
     "test": "mocha",
+    "start:dev": "docker-compose -f docker-compose.dev.yml up -d --build",
     "heroku-postbuild": "cd frontend && npm i && npm run build"
   },
   "keywords": [],
