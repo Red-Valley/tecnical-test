@@ -8,7 +8,7 @@ const originWhiteList =
     ? [
         /* put here production whitelisted domains */
       ]
-    : [`http://localhost:3000`];
+    : '*'
 
 const corsOptions = {
   origin: originWhiteList,

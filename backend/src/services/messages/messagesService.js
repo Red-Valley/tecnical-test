@@ -50,7 +50,11 @@ const sendMessageService = async ({ user_id, content, command = false }) => {
       statusCode: STATUS_CODE.OK,
       result: {
         ...payload,
-        user: { ...messageOwner },
+        user: {
+          id: messageOwner.id,
+          username: messageOwner.username,
+          photo: messageOwner.photo,
+        },
         id: message.id,
         createdAt: message.createdAt,
       },
