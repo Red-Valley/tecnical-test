@@ -7,6 +7,8 @@ const HttpResponseHandling = {
   [STATUS_CODE.OK]: (res, data) => res.status(STATUS_CODE.OK).json(data),
   [STATUS_CODE.CREATED]: (res, data) =>
     res.status(STATUS_CODE.CREATED).json(data),
+  [STATUS_CODE.UNAUTHORIZED]: (res, message) =>
+    res.status(STATUS_CODE.UNAUTHORIZED).json({ error: true, message }),
   [STATUS_CODE.FORBIDDEN]: (res, message) =>
     res.status(STATUS_CODE.FORBIDDEN).json({ error: true, message }),
   [STATUS_CODE.BAD_REQUEST]: (res, message) =>

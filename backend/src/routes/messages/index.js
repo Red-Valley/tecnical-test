@@ -1,9 +1,8 @@
 const router = require("express").Router();
 
-// const { messagesMiddleware } = require("../../middlewares");
 const { messagesController } = require("../../controllers");
+const { verifyToken } = require("../../middlewares/user");
 
-router.get("/", messagesController.listRoomMessages);
-// router.get("/:room_id/send", messagesMiddleware.checkMessageFields, messagesController.sendMessage);
+router.get("/", verifyToken, messagesController.listRoomMessages);
 
 module.exports = router;

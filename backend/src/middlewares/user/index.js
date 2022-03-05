@@ -1,6 +1,23 @@
+const jwt = require("jsonwebtoken");
 const { authenticateSchema, createUserSchema } = require("./schema");
 const { STATUS_CODE } = require("../../utils/constants");
 const { HttpResponseHandling } = require("../../utils/helper");
+const { JWT_SECRET } = require("../../../config");
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers["x-access-token"];
+
+  if (!token) {
+    return HttpResponseHandling[STATUS_CODE.FORBIDDEN](res, "token required");
+  }
+
+  try {
+    jwt.verify(token, JWT_SECRET);
+  } catch (err) {
+    return HttpResponseHandling[STATUS_CODE.UNAUTHORIZED](res, "unauthorized");
+  }
+  return next();
+};
 
 const checkAuthenticationFields = async (req, res, next) => {
   const { username, password } = req.body;
@@ -30,6 +47,7 @@ const checkUserFields = async (req, res, next) => {
 };
 
 module.exports = {
+  verifyToken,
   checkAuthenticationFields,
   checkUserFields,
 };
