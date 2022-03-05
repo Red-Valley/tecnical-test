@@ -24,8 +24,7 @@ module.exports = (server, options = {}) => {
         const { error, result } = await sendMessageService(payload);
         !error &&
           io.to(room_id).emit(SOCKET_EVENTS.RECEIVE_ROOM_MESSAGES, {
-            ...payload,
-            id: result.id,
+            ...result,
             createdAt: result.createdAt,
           });
       }
