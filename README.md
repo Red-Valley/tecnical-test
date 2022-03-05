@@ -4,7 +4,7 @@
 
 - `npm 8.x`
 - `node 16.x`
-- `docker` - optional if you don't want to use the [Quick Start](#quick_start)
+- `docker` - optional if you don't want to use the [Quick Start](#quick-start)
 
 ## Before start
 
@@ -68,8 +68,3 @@ REACT_APP_BASE_URL=http://localhost:8000
 ## Testing
 
 You can run the server **test suites** executing `$ npm run test`.
-
-## To apply for the job you must ...
-
-    - Fork this repository.
-    - Make a PR with the code and the url to your application
