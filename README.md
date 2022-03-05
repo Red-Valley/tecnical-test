@@ -36,7 +36,7 @@ Those commands will start the server and client apps respectively.
 
 ## Quick Start
 
-In order to run this project (without running the commands above), you can run `$ npm start:dev` in the project root folder. This will start the **server** at http://localhost:8000, **client** at http://localhost:3000, **mongo-express** at http://localhost:8081 (to manage your database) and **mongodb** services.
+In order to run this project (without running the commands above), you can run `$ npm run start:dev` in the project root folder. This will start the **server** at http://localhost:8000, **client** at http://localhost:3000, **mongo-express** at http://localhost:8081 (to manage your database) and **mongodb** services.
 
 ### Note
 
