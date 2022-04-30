@@ -1,0 +1,15 @@
+Puede acceder a la aplicación en línea por medio del siguiente link 
+https://red-valley-tecnical-test-l4qpkjyzb-alvarojoset19.vercel.app/auth/login
+
+Nota:
+  En el desarrollo del proyecto frontend con React, utilice diferentes
+  formas para trabajar los estados y las vistas con el objetivo de mostrar
+  un poco más general las formas en que suelo trabajar normalmente, 
+
+  Para mostrar el selector de gifs, utilicé el comando /giphy <texto a buscar> como
+  se muestra en la captura 'selector de gifs' dentro de la carpeta 'evidencia de funcionamiento'
+
+datos de contacto:
+  teléfono: 3013571860
+  correo: alvarojoset.19@gmail.com
+  nombre: Alvaro Jose Toro Durango
