@@ -1,0 +1,14 @@
+.chat {
+    &__conversations {
+        @apply w-full md:w-1/3 border h-full flex flex-col flex-1;
+
+        @media (min-width: 1200px) {
+            min-width: 18.75rem;
+            max-width: 20rem;
+        }
+    }
+
+    &__items-container {
+        @apply h-full overflow-y-auto max-h-full mt-8 relative;
+    }
+}

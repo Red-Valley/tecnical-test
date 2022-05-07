@@ -1,0 +1,46 @@
+@import "../../styles/colors.scss";
+
+$active-chat: rgba($color: #000, $alpha: 0.05);
+
+.chat-item {
+    @apply relative flex items-center w-full gap-2 py-2 cursor-pointer;
+
+    &:hover .chat-item__shadow {
+        @apply block;
+    }
+
+    &__name {
+        @apply text-sm font-bold;
+    }
+
+    &__shadow {
+        @apply absolute w-full h-full hidden transition-all duration-300;
+
+        background-color: rgba($color: #000, $alpha: 0.05);
+    }
+
+    &__check {
+        @apply absolute top-0 bottom-0 my-auto right-3 w-4 h-4 rounded-full;
+    }
+}
+
+.active-chat {
+    background-color: rgba($color: #000, $alpha: 0.05);
+}
+
+.max-text-large {
+    max-width: 37.5rem !important;
+}
+
+.gif-box {
+    @apply absolute flex flex-col rounded-md cursor-pointer bottom-8;
+
+    box-shadow: 0 0.1875rem 1.125rem -0.375rem rgba(0, 0, 0, 0.75);
+
+    &__list {
+        @apply flex flex-col overflow-y-auto;
+
+        width: 18.75rem;
+        height: 12.5rem;
+    }
+}

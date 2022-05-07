@@ -1,0 +1,23 @@
+@import "../../styles/colors.scss";
+
+.button {
+    @apply text-white text-center rounded-sm transition-all duration-300;
+
+    height: 3.625rem;
+
+    &-enabled {
+        &:active {
+            transform: scale(0.99);
+        }
+
+        &:hover {
+            opacity: .9;
+        }
+
+        background-color: $secondary_color;
+    }
+
+    &-disabled {
+        background-color: gray;
+    }
+}

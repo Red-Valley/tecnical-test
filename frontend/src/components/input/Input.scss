@@ -1,0 +1,28 @@
+@import "../../styles/colors.scss";
+
+.input-wrapper {
+    @apply relative w-full;
+
+    .input {
+        @apply w-full px-2 outline-none rounded-sm transition-all duration-300 bg-transparent text-white;
+
+        border: 1px solid $border;
+        height: 3.625rem;
+
+        &:focus {
+            border: 0.0625rem solid transparent;
+            box-shadow: 0 0 0 0.1875rem $secondary_color;
+        }
+
+        &:focus ~ .input__label,
+        &:valid ~ .input__label {
+            top: 4px;
+            font-size: 0.6875rem;
+            color: $secondary_color;
+        }
+
+        &__label {
+            @apply absolute m-auto left-2.5 top-4 transition-all duration-300 text-white;
+        }
+    }
+}

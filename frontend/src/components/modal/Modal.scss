@@ -1,0 +1,26 @@
+.modal {
+    @apply w-full h-screen;
+
+    background-color: rgba($color: #CCC, $alpha: 0.2);
+
+    &__content {
+        @apply py-12 px-24 rounded-2xl bg-black flex items-center flex-col justify-center w-96 m-auto inset-0 absolute;
+
+        min-width: 600px;
+        width: max-content;
+        transition: .4s all;
+        animation: show 2s;
+        height: max-content;
+        inset: 0;
+
+        @keyframes show {
+            from {
+                top: 125rem;
+            }
+
+            to {
+                inset: 0;
+            }
+        }
+    }
+}
